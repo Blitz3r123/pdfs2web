@@ -58,16 +58,35 @@ fs.readdir(__dirname + '/files', (err, data) => {
 				runBatCode(__dirname + '/files/script.bat');
 			}
 
+			var outputPage = '<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><p class="lead">';
+
 			for(var i = 0; i < htmlFiles.length; i++){
-				var page = fs.readFileSync();
+				if((htmlFiles[i].slice(-6) === 's.html') && (!htmlFiles[i].includes('answers.html'))){
+					// console.log(htmlFiles[i]);
+					var page = fs.readFileSync(__dirname + '/files/' + htmlFiles[i]);
+					const $ = cheerio.load(page);
+					outputPage = outputPage + $('body').html();
+				}
 			}
+			outputPage = outputPage + '</p></body>';
+			// console.log(outputPage);
+
+			fs.writeFile('outputPage.html', outputPage, (err) => {
+				if (err) console.log(err);
+			});
+
+			// for(var i = 0; i < htmlFiles.length; i++){
+				
+
+				// console.log($(''));
+			// }
 			// All files should be sorted at this point and all html files should be deleted
 			// Create the bat code to convert all pdf files to html 
-			displayArray(htmlFiles);
-			displayArray(pdfFiles);
-			displayArray(exeFiles);
-			displayArray(batFiles);
-			displayArray(otherFiles);
+			// displayArray(htmlFiles);
+			// displayArray(pdfFiles);
+			// displayArray(exeFiles);
+			// displayArray(batFiles);
+			// displayArray(otherFiles);
 
 		}
 	}	
