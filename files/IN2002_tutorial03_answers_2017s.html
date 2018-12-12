@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML>
+<HEAD>
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<A name=1></a><b>Module IN2002--Data Structures and Algorithms </b><br>
+<b>Answers to Exercise Sheet 3 </b><br>
+ <br> <br> <br>1. Only one of the following trees is a heap. Indicate which one and why the others are not. <br> <br>
+a)   <br>
+19<br>
+10<br>
+12<br>
+8<br>
+7<br>
+9<br>
+3<br>
+0<br>
+4<br>
+1<br>
+6<br>
+5<br>
+2<br>
+ <br>
+  This is not a heap because the leaves are not as far left as possible: (2) is a child of (3) <br>
+even though (9) has room for one more child. <br>
+ <br>b) <br>
+17<br>
+11<br>
+15<br>
+7<br>
+5<br>
+9<br>
+10<br>
+2<br>
+4<br>
+1<br>
+3<br>
+8<br>
+6<br>
+0<br>
+ <br>
+  This is not a heap because it is not a binary tree: (9) has more than two children. <br>
+ <br>c) <br>
+19<br>
+10<br>
+12<br>
+8<br>
+7<br>
+9<br>
+3<br>
+2<br>
+4<br>
+1<br>
+6<br>
+ <br>
+  This is a heap because it is a perfectly balanced binary tree with all its leaves as far <br>
+left as possible, and with no child larger than its parent. <br>
+ <br>d) <br>
+<hr>
+<A name=2></a>19<br>
+10<br>
+12<br>
+8<br>
+3<br>
+9<br>
+2<br>
+4<br>
+1<br>
+6<br>
+5<br>
+ <br>
+  This is not a heap because (6) is larger than its parent (3) and (12) has only one child <br>
+(making the tree unbalanced). <br>
+ <br> <br>2. Show the heaps that are generated as you add the following sequence of keys to an empty <br>heap (one at a time): 6, 3, 11, 9, 8, 5, 4, 12. <br> <br>
+  This is what the heaps look like after adding each element. <br>
+ <br>
+1) 6<br>
+2)<br>
+6<br>
+3)<br>
+11<br>
+3<br>
+3<br>
+6<br>
+4)<br>
+11<br>
+5)<br>
+11<br>
+9<br>
+6<br>
+9<br>
+6<br>
+3<br>
+3<br>
+8<br>
+ <br>
+ <br>
+7)<br>
+6)<br>
+11<br>
+11<br>
+9<br>
+6<br>
+9<br>
+6<br>
+3<br>
+8<br>
+5<br>
+3<br>
+8<br>
+5<br>
+4<br>
+ <br>
+ <br>
+8)<br>
+12<br>
+11<br>
+6<br>
+9<br>
+8<br>
+5<br>
+4<br>
+3<br>
+ <br>
+ <br> <br> <br> <br>
+<hr>
+<A name=3></a> <br>3. Only one of the following arrays is not a heap. Indicate which one. <br>
+a)  12 11 8 10 3 4 6 7 5 1 2 <br>b)  30 17 16 15 14 3 2 8 11 7 6 5 <br>c)  20 8 14 7 1 5 10 3 6 <br>
+ <br>
+  For this, we build the heaps in tree format and check whether the children have lower <br>
+values than their parents: <br>
+ <br>
+a)<br>
+12<br>
+b)<br>
+30<br>
+11<br>
+8<br>
+17<br>
+16<br>
+10<br>
+3<br>
+4<br>
+6<br>
+15<br>
+14<br>
+3<br>
+2<br>
+7<br>
+5<br>
+1<br>
+2<br>
+    8 11 7<br>
+6<br>
+5<br>
+ <br>
+ <br> <br>
+c)<br>
+20<br>
+8<br>
+14<br>
+7<br>
+1<br>
+5<br>
+10<br>
+3<br>
+6<br>
+ <br>
+ <br>
+  So "a" and "c" are heaps; and "b" is not ("b" has node "5" as a child of "3", which is <br>
+smaller. <br>
+ <br> <br>4. Consider heap 16 14 10 8 7 9 3  <br>
+a.  Show it in tree format. <br>
+ <br>
+a)<br>
+16<br>
+14<br>
+10<br>
+8<br>
+7<br>
+9<br>
+3<br>
+ <br>
+ <br>
+b.  Show the heaps that result if extractMax is applied repeatedly until the heap is empty. <br>
+ <br>
+<hr>
+<A name=4></a>1)<br>
+16<br>
+2)<br>
+14<br>
+14<br>
+10<br>
+8<br>
+10<br>
+8<br>
+7<br>
+9<br>
+3<br>
+3<br>
+7<br>
+9<br>
+   <br>
+ <br>
+3)<br>
+10<br>
+4)<br>
+9<br>
+8<br>
+9<br>
+8<br>
+7<br>
+3<br>
+7<br>
+3<br>
+   <br>
+ <br>
+5)<br>
+8<br>
+6)<br>
+7<br>
+3<br>
+7<br>
+7)<br>
+3<br>
+3<br>
+  <br>
+ <br>
+5. Provide pseudocode for a queue implemented using an array. This implies the functions <br><i>isEmpty</i>, <i>enqueue</i>, and <i>dequeue</i>. <br> <br><i>public class ArrayQueue implements Queue {</i> <br><i> </i><br>
+<i> </i><br>
+<i>private int[] a;</i> <br>
+<i> </i><br>
+<i> </i><br>
+<i>private int count = 0;</i> <br>
+<i> </i><br>
+<i> </i><br>
+<i>public ArrayQueue(int size) {a = new int[size];}</i> <br>
+<i> </i><br>
+ <br>
+<i> </i><br>
+<i> </i><br>
+<i>public boolean isEmpty() {  return count == 0; }</i> <br>
+<i> </i><br>
+<i> </i><br>
+<i>public void enqueue(int elt) { a[count++] =  elt; }</i> <br>
+<i> </i><br>
+<i> </i><br>
+<i>public int dequeue() {  </i><br>
+<i> </i><br>
+<i> </i><br>
+<i> </i><br>
+<i>int value = a[0]; </i><br>
+<i> </i><br>
+<i> </i><br>
+<i> </i><br>
+<i>int i = 1; </i><br>
+<i> </i><br>
+<i> </i><br>
+<i> </i><br>
+<i>while (i&lt;count) { </i><br>
+<i> </i><br>
+<i> </i><br>
+<i> </i><br>
+<i> </i><br>
+<i>a[i-1] = a[i]; </i><br>
+<i> </i><br>
+<i> </i><br>
+<i> </i><br>
+<i> </i><br>
+<i>i++; </i><br>
+<i> </i><br>
+<i> </i><br>
+<i> </i><br>
+<i>} </i><br>
+<i> </i><br>
+<i> </i><br>
+<i> </i><br>
+<i>count--; <br>return value;  </i><br>
+<i>}</i> <br>
+<i>}</i> <br> <br> <br> <br> <br>
+<hr>
+<A name=5></a>6. Write functions  voi d  add( i nt   el t )  and  i nt   ext r act Max( )  in Java, <br>implementing the pseudocode in the lecture nodes. <br> <br>/** <br>* Add an element to a heap. <br>* @param elt The element to add. <br>*/ <br>public void add(int elt) { <br>
+int pos = count; // add after last element <br>while (pos &gt; 0 &amp;&amp; data[parent(pos)] &lt; elt) { // while <br>
+// heap condition not satisfied <br>data[pos] = data[parent(pos)]; // move parent down <br>pos = parent(pos); // move to parent position <br>
+} <br>data[pos] = elt; // insert elt <br>count++; // increment after adding <br>
+} <br> <br>/** <br>* Get the greatest element, remove it, and reorganise the <br>* heap. <br>* @return The greatest element of the heap. <br>*/ <br>public int extractMax() { <br>
+int max = data[0]; // max is a 0, make a copy <br>count--; // decrement count to use it as index <br>data[0] = data[count]; // move last elt to 0 <br>moveDown(data, 0, count - 1); // reorganise <br>return max; // return the old max <br>
+} <br> <br>/** <br>* Reorganizes a heap by moving the elt 'first' down until <br>* heap condition is satisfied. <br>* @param data The data array. <br>* @param first Index of element to move down. <br>* @param last Index of last valid position in heap. <br>*/ <br>void moveDown(int data[], int first, int last) { <br>
+while (left(first) &lt;= last) {// determine <br>
+int largest = left(first); // the greater child <br>if (right(first) &lt;= last // if greater <br>
+&amp;&amp; data[largest] &lt; data[right(first)]) <br>largest = right(first); // use right <br>// test heap condition <br>
+if (data[first] &gt;= data[largest]) // if heap <br>
+break; // cond. satisfied, we can finish <br>
+swap(data, first, largest); // swap w. greater child <br>first = largest; // start again from greater child <br>
+} <br>
+} <br> <br> <br> <br>
+<hr>
+<A name=6></a><b>And a bit of programming  (note that answers to this will be released much <br>later than for the other questions, giving you time to experiment with it) <br></b> <br>
+<hr>
+</BODY>
+</HTML>

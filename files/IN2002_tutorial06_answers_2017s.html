@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML>
+<HEAD>
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<A name=1></a><b>Module IN2002--Data Structures and Algorithms </b><br>
+<b>Answers to Exercise Sheet 6 </b><br>
+ <br> <br>1. Demonstrate the insertion of the keys 5, 28, 19, 20, 33, 12, 17, 10 into a hash table of 9 <br>slots. The hash function is h(k) = k mod 9, and collisions are resolved by chaining. How <br>much difference would it make if the keys were presented in a different order? <br> <br>
+  The hashing function is h(k) = k mod 9 <br>  5 is placed in slot 5 mod 9 = 5 <br>  28 is placed in slot 28 mod 9 = 1 <br>  19 is to be placed in slot 19 mod 9 = 1, so it is added to the singly linked list <br>  ...and so on <br>
+ <br>
+0<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+7<br>
+8<br>
+null<br>
+null<br>
+null<br>
+10<br>
+20<br>
+12<br>
+5<br>
+33<br>
+17<br>
+null null<br>
+null<br>
+null<br>
+null<br>
+19<br>
+28<br>
+null<br>
+ <br>
+  Adding the elements in a different order would change the ordering of the elements in <br>
+each singly linked list, but this would not affect the average performance of search or <br>insertion. <br>
+ <br> <br>2. Demonstrate the insertion of the keys 5, 28, 19, 15, 17, 20, 16 and 30 into a hash table of <br>11 slots, with hash function h(k) = k mod 11, and collisions resolved by open addressing, <br>using a) linear probing, and b) quadratic probing. What are the average and worst cases for <br>search? <br> <br>
+a)  Linear probing <br>
+ <br>
+  5 mod 11 = 5 is empty, so 5 if placed in the slot <br>  28 mod 11 = 6 is empty, so 28 is placed in the slot, <br>  ... and the same happens with 19 and 15. <br>  However, 17 mod 11 = 6, which is occupied. Consecutive slots are tried until an <br>
+empty one is found: <br>
+<hr>
+<A name=2></a>0<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+7<br>
+8<br>
+9<br>
+10<br>
+15<br>
+5<br>
+28 17 19<br>
+ <br>
+  20 mod 11 = 9, which is empty. <br>  16 mod 11 = 5, but it is occupied, so the consecutive slots are tried <br>
+0<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+7<br>
+8<br>
+9<br>
+10<br>
+15<br>
+5<br>
+28 17 19 20 16<br>
+ <br>
+  30 mod 11 is 8, but it is occupied, so the consecutive slots are tried until an empty one <br>
+is found <br>
+0<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+7<br>
+8<br>
+9<br>
+10<br>
+30<br>
+15<br>
+5<br>
+28 17 19 20 16<br>
+ <br>
+  The average case for a successful search here is equivalent to the average of the times <br>
+it takes to insert the keys in the hash table (17/8 = 2.125). The worst successful search <br>case would be equivalent to the worst insertion case (16, which required checking 6 <br>slots). <br>
+  The worst unsuccessful search would involve searching the first element in the largest <br>
+cluster, i.e., slot 4. For example, to search for 26 (26 mod 11 = 4), 9 slots would need <br>to be checked before realising that it is not there. The average case for an unsuccessful <br>search here is 4.5 in the cluster ([2+...+9]/8) and 1 on each of the three empty <br>elements, giving ~4.27.. on average. <br>
+ <br>
+<hr>
+<A name=3></a> <br>
+b)  Quadratic probing <br>
+ <br>
+  Again, 5, 28, 19 and 15 find empty slots straight away. <br>  17 mod 11 = 6, which is occupied, so then (6 + 1) mod 11 = 7 is tried and found to be <br>
+empty. <br>
+0<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+7<br>
+8<br>
+9<br>
+10<br>
+15<br>
+5<br>
+28 17 19<br>
+ <br>
+  20 mod 11 = 9, which is empty. However, 16 mod 11 is 5, which is occupied, so then <br>
+the quadratic probing tries (5 + 1^2) mod 11 = 6, (5 ­ 1^2) mod 11 = 4, (5 + 2^2) mod <br>11 = 9, and (5 ­ 2^2) mod 11 = 1, which is empty. <br>
+0<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+7<br>
+8<br>
+9<br>
+10<br>
+16<br>
+15<br>
+5<br>
+28 17 19 20<br>
+ <br>
+  Inserting 30 requires looking at 30 mod 11 = 8, (8 + 1^2) mod 11 = 9, (8 ­ 1^2) mod <br>
+11 = 7, (8 + 2^2) mod 11 = 1, (8 ­ 2^2) mod 11 = 4, (8 + 3^2) mod 11 = 6, (8 ­ 3^2) <br>mod 11 = -1. Since this is negative we add the table length to the result to bring us <br>back into the bounds of the table (-1+11= 10). Slot 10 is empty, so 30 is stored there. <br>
+0<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+7<br>
+8<br>
+9<br>
+10<br>
+16<br>
+15<br>
+5<br>
+28 17 19 20 30<br>
+ <br>
+<hr>
+<A name=4></a>  Once again, the average case for a successful search here is equivalent to the average <br>
+of the times it took to insert the keys in the hash table. The worst successful search <br>case would be equivalent to the worst insertion case (30, which required checking 7 <br>slots). The worst and average unsuccessful search is not as clearly cut as with linear <br>probing. We can calculate it for each case, but there is no general dependency on the <br>cluster length. For example, to search for 27 (27 mod 11 = 5), 7 slots would need to <br>be checked before realising that it is not in the hash table. <br>
+ <br> <br>3. Write delete for a hash table with chaining. <br> <br>
+  For deleting a key, we first need to find the right slot, then search through the chain <br>
+and then delete the node from the chain. <br>
+ <br>void delete(int key) { <br>
+int index = hash(key); // find the slot address <br>Node p = table[index]; // head of the chain <br>if (p != null) { // if chain is not empty <br>
+if (p.info == key) // if head contains key <br>
+table[index] = p.next; // remove head <br>
+else { // otherwise <br>
+while (p.next != null &amp;&amp; //until chain <br>
+p.next.info != key) { // end or key <br>
+p = p.next; // found, go forward <br>
+if (p.next != null) // !end =&gt; key found <br>
+p.next = p.next.next; // delete <br>
+} <br>
+} <br>
+} <br> <br> <br>4. Suppose we have a hash table of size m, with hash function h(k) = k mod m, and with <br>collisions resolved by chaining. Suppose further that all the keys we will insert divide evenly <br>by 4 (for example, they are pointers on a certain architecture). What happens if m is 20? 19? <br>18? In general, which values of m give better performance? <br> <br>
+  If m is 20, only slots 0, 4, 8, 12 and 16 will be used, and will have longer chains. If m <br>
+is 18, half of the slots are used (the even-numbered ones). If m is 19, all the slots are <br>used. <br>
+  For this distribution of keys, we should choose an odd value for m, so that the keys <br>
+will be distributed across all the slots. <br>
+<hr>
+</BODY>
+</HTML>

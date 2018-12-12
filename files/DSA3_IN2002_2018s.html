@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML>
+<HEAD>
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<A name=1></a><b>IN2002 Data Structures and Algorithms </b><br>
+Lecture 3 ­ Trees, Heaps and Queues<br>
+Aravin Naren<br>Semester 1, 2018/19<br>
+1<br>
+<hr>
+<A name=2></a><b>Learning Objectives</b><br>
+§ Understand and be able to use:<br>
+§ the abstract data type queue<br>§ the data structures:<br>
+§ Heaps<br>§ Extensible arrays<br>
+§ Be able to understand, apply and develop algorithms to those <br>
+above, most notably:<br>§ Adding elements<br>§ Extracting elements<br>§ HeapSort<br>
+2<br>
+<hr>
+<A name=3></a><b>Trees</b><br>
+3<br>
+<hr>
+<A name=4></a><b>What is this?</b><br>
+17<br>
+11<br>
+15<br>
+7<br>
+5<br>
+9<br>
+10<br>
+2<br>
+4<br>
+1<br>
+3<br>
+8<br>
+6<br>
+0<br>
+4<br>
+<hr>
+<A name=5></a><b>Quick introduction to trees</b><br>
+§ Trees are data structures that have a <br>
+root, nodes, branches and leaves<br>
+§ Most nodes are at the end of a <br>
+branch. The only exception is the root <br>(which is the top node!)<br>
+§ Branches proceed from nodes<br>
+§ Nodes without branches are cal ed <br>
+"leaves"<br>
+5<br>
+<hr>
+<A name=6></a><b>More tree terminology</b><br>
+§ The nodes n2,n3 at the end of a node <br>
+n1's branches are its children, and n1 <br>is the parent of n2,n3.<br>
+§ The root is thus a node with no <br>
+parents.<br>
+§ The leaves are nodes with no <br>
+children.<br>
+6<br>
+<hr>
+<A name=7></a><b>Tree types</b><br>
+A <b>binary </b>tree is a tree in which each node <br>has, at most, two children<br>
+A <b>perfectly balanced </b>binary tree is a <br>tree whose least deep leaf is no more<br>than one level apart from the deepest one<br>
+7<br>
+<hr>
+<A name=8></a><b>Last week...</b><br>
+Priority queues<br>
+<b>Ordered </b><br>
+<b>Unordered </b><br>
+<b>Array</b><br>
+<b>Array</b><br>
+isEmpty<br>
+O(?)<br>
+O(?)<br>
+add<br>
+O(?)<br>
+O(?)<br>
+extractMax<br>
+O(?)<br>
+O(?)<br>
+8<br>
+<hr>
+<A name=9></a><b>Is there a better implementation?</b><br>
+Using heaps (a kind of tree) we can distribute and<br>reduce the load, achieving O(log n) time for both add<br>and extractMax.<br>
+9<br>
+* Introduced to you in Computation &amp; Reasoning<br>
+<hr>
+<A name=10></a><b>Heaps</b><br>
+10<br>
+<hr>
+<A name=11></a><b>Heaps</b><br>
+A heap is a perfectly balanced binary tree such that:<br>§ No node is larger than its parent<br>§ All items on the lowest level are as far to the left as possible<br>
+11<br>
+<hr>
+<A name=12></a><b>Heap Operations</b><br>
+§ Heap is empty if the root is empty<br>§ Heap insertion: add a node to the heap--displacing other nodes as necessary so <br>
+that the heap remains a heap<br>
+§ Heap extraction: remove the element with the highest value in the heap (the <br>
+root), moving the other nodes as necessary so that the heap remains a heap<br>
+12<br>
+<hr>
+<A name=13></a><b>Heap Insertion</b><br>
+§ Add the new node as a leaf<br>§ Sift the new node up to its correct position (at most log n swaps--<br>
+because the tree has at most log n levels)<br>
+13<br>
+<hr>
+<A name=14></a><b>Heap Extraction</b><br>
+§ Extract the root, and place the last leaf in the root position<br>§ Re-establish the heap conditions (at most log n swaps)<br>
+14<br>
+<hr>
+<A name=15></a><b>Heaps and Arrays</b><br>
+§ Heaps can be represented as arrays:<br>
+15<br>
+<hr>
+<A name=16></a><b>Relating indices</b><br>
+Notice that:<br>§ the parent of node n is node <br>
+(n-1)/2 (int division)<br>
+§ the left child of node n is <br>
+node 2n + 1<br>
+§ the right child of node n is <br>
+node 2n + 2<br>
+16<br>
+<hr>
+<A name=17></a><b>An Implementation in Java</b><br>
+public class HeapPQ implements PriorityQueue {<br>
+private int[] data; // data[] is the heap<br>private int count = 0;<br>
+public HeapPQ(int size){data = new int [size];}<br>
+public boolean isEmpty(){return count == 0;}<br>
+... HeapPQ continues<br>
+17<br>
+<hr>
+<A name=18></a><b>Relating Indices in Java</b><br>
+You will remember that:<br>
+§ the parent of node n is node (n-1)/2<br>§ the left child of node n is node 2n + 1<br>§ the right child of node n is node 2n + 2<br>
+private int parent(int n) { return (n-1)/2; }<br>private int left(int n) { return n*2 + 1; }<br>private int right(int n) { return n*2 + 2; }<br>
+... HeapPQ continues<br>
+18<br>
+<hr>
+<A name=19></a><b>Heap Insertion</b><br>
+<i>Function add(elt) where data is the array containing<br>the heap and count is the heap size:<br>pos   count+1<br>WHILE pos &gt; 1 AND data[parent of pos] &lt; elt</i><br>
+<i>data[pos]  data[parent of pos]<br>pos  parent of pos</i><br>
+<i>data[pos]  elt<br>count  count + 1</i><br>
+19<br>
+<hr>
+<A name=20></a><b>Heap Extraction</b><br>
+<i>Function extractMax() where "data" is the array containing the<br>heap and "count" is the heap size:<br>max  data[1]<br>data[1]  data[count]<br>count  count - 1<br>moveDown(data, 1, count)<br>Return max</i><br>
+Function <i>moveDown(data, first, last) </i>moves the <br>element at position <i>first </i>down to its proper position<br>
+20<br>
+<hr>
+<A name=21></a><b>Moving a key down the heap</b><br>
+<i>Function moveDown(data, first, last):<br>WHILE left child of first &lt;= last</i><br>
+<i>larger  position of the child with the larger value</i><br>
+<i>IF data[first] &gt;= data[larger] THEN</i><br>
+<i>Break the while loop</i><br>
+<i>swap first and larger in data</i><br>
+<i>first  larger</i><br>
+Remember that <i>first</i>, <i>larger </i>and <i>last </i>are positions in array <i>data</i>. <br>The value of <i>largest</i>, for example, is <i>data[largest].</i><br>
+21<br>
+<hr>
+<A name=22></a><b>Sorting using heaps</b><br>
+Heap sort involves:<br>§ adding the elements to a heap, and then<br>§ extracting the elements from the heap<br>
+This could be done with just one array:<br>§ in the first phase, the heap grows as the unsorted section shrinks<br>§ in the second phase, the heap shrinks as the sorted portion <br>
+grows.<br>
+22<br>
+<hr>
+<A name=23></a><b>HeapSort in Java</b><br>
+void heapsort(int[] data) {<br>
+\\ first phase: heap goes from data[i+1] to<br>\\ data[data.length-1]. The rest of data[] is<br>\\ unsorted<br>for (int i = data.length/2 - 1; i&gt;= 0; i--)<br>
+moveDown(data, i, data.length-1);<br>
+\\ second phase: heap goes from data[0] to data[i]<br>\\ the rest contains the largest elements, sorted<br>for (int i = data.length - 1; i&gt;= 1; i--) {<br>
+swap(data, 0, i);<br>moveDown(data, 0, i-1);<br>
+}<br>
+}<br>
+23<br>
+<hr>
+<A name=24></a><b>HeapSort Example</b><br>
+§ Use heapSort to sort [1 20 3 10 8 7 40]<br>
+24<br>
+<hr>
+<A name=25></a><b>HeapSort Analysis</b><br>
+§ Heap sort performs O(n) heap operations, each taking O(log n) time, in <br>
+total <b>O(n log n) time </b>in the <b>worst case</b>.<br>
+§ Heap sort and quicksort have both <b>average time complexity of          </b><br>
+<b>O(n log n)</b>, but heap sort is normally slower than quicksort (different <br>constant factors). <br> Quicksort is preferred when no guaranteed response time needed.<br>
+§ <b>Heap sort </b>requires only <b>O(1) extra memory space</b>, in contrast to <b>O(n) </b><br>
+<b>for merge sort </b>or <b>O(log n) for quicksort </b>(on average, O(n) in the worst <br>case).<br>
+§ A refinement: build the heap from the bottom up. This can be shown to <br>
+take O(n) time, but the O(n log n) selection phase still dominates.<br>
+25<br>
+<hr>
+<A name=26></a><b>Dynamic Data Structures</b><br>
+26<br>
+<hr>
+<A name=27></a><b>Dynamic Data Structures</b><br>
+§Amounts of data to store often vary in size in ways we can <br>not determine beforehand<br>§Reallocate-and-copy of arrays can solve this problem<br>§In general, linked structures are more flexible:<br>
+§singly linked lists<br>
+§doubly linked lists and circular lists<br>
+§trees and graphs<br>
+27<br>
+<hr>
+<A name=28></a><b>Queues</b><br>
+§First In First Out (FIFO)<br>
+§As opposed to last in first out (stacks)<br>§And also to priority queues (in which priorities may  not reflect the <br>actual order of addition)<br>
+28<br>
+<hr>
+<A name=29></a><b>Queue Operations</b><br>
+You must always remove the element that has been in the <br>queue the longest.<br>
+The operations are thus:<br>
+§ Add an element to the queue<br>§ Remove the element added the longest time before<br>§ Check whether the queue is empty.<br>
+29<br>
+<hr>
+<A name=30></a><b>A Queue ADT</b><br>
+public interface Queue {<br>
+// Is the queue empty?<br>boolean isEmpty();<br>// Add an element to the queue<br>void enqueue(int elt);<br>// Remove and return the earliest element of<br>// the queue<br>int dequeue();<br>
+}<br>
+30<br>
+<hr>
+<A name=31></a><b>A Stack ADT</b><br>
+// a stack of integers<br>public interface Stack {<br>
+// is the stack empty?<br>boolean isEmpty();<br>// add (push) an element into the stack<br>void push(int elt);<br>// remove and return the most recently pushed<br>// element still in the stack<br>int pop();<br>
+}<br>
+31<br>
+<hr>
+<A name=32></a><b>Extending arrays by relocate-and-copy</b><br>
+Because size is unpredictable:<br>§ initial array allocation may fall short<br>§ trying to be safe is wasteful<br>A solution: extensible arrays<br>§ start with a small array<br>§ if more space is needed, create a new, larger array and copy <br>
+elements into it<br>
+... adds O(n) to space and O(n) to time per extension<br>
+32<br>
+<hr>
+<A name=33></a><b>Stacks with relocate-and-copy</b><br>
+public class ArrayStack implements Stack {<br>
+private int count = 0;<br>private int[] data = new int[1];<br>
+public boolean isEmpty() {<br>
+return count == 0;<br>
+}<br>
+public int pop() {<br>
+count--;<br>return data[count];<br>
+33<br>
+}<br>
+... continues<br>
+<hr>
+<A name=34></a><b>Stacks with relocate-and-copy (ctd.)</b><br>
+... which was the same as last week. However:<br>
+public void push(int elt) {<br>
+if (count == data.length) { // not enough space<br>
+int[] d1 = new int[data.length + 1]; // new<br>for (int i = 0; i &lt; count; i++) // array<br>
+d1[i] = data[i]; <br>
+// copy elements<br>
+data = d1;<br>
+// use new array<br>
+}<br>data[count] = elt; <br>
+// add new element<br>
+count++;<br>
+}<br>
+34<br>
+}<br>
+<hr>
+<A name=35></a><b>Amortised Analysis</b><br>
+<i><b>Amortised </b></i>complexity refers to the <b><i>average complexity over a <br>sequence of operations</b></i>, which normally depend on each other (usually <br>choosing the worst case regarding data input).<br>
+This is different from what we normally call <b><i>average case </b></i>complexity, <br>which <b><i>averages over different input data </b></i>for a single, independent <br>operation.<br>
+E.g., the average complexity (on an array of length n) of Quick Sort is     <br>O(n log n), the amortised complexity over a sequence of Quick Sort <br>applications is O(n2)<br>(implying the worst case per application).<br>
+35<br>
+<hr>
+<A name=36></a><b>Analysis of the implementation</b><br>
+In a sequence of n pushes, the number of copies is<br>
+1 + 2 + 3 + ... + (n - 1) = n(n - 1)/2 = O(n2)<br>
+This means that <b>per <i>push </i>operation</b>, there is an <b>amortised cost of O(n).</b><br>
+Going up by a larger step than 1 improves things, but<br>only by a constant factor.<br>
+36<br>
+<hr>
+<A name=37></a><b>... An improvement</b><br>
+If we <b>double the size whenever we extend</b>, the<br>number of elements copied for n = 2k pushes is<br>
+1 + 2 + 22 + ... + 2k-1 = 2k - 1 = O(n)  (proof on next slide)<br>
+This <b>averages out at O(1) per operation</b>, i.e., the amortised cost over the <br>sequence of operations is constant.<br>
+37<br>
+<hr>
+<A name=38></a><b>Proof: Sum of Powers of 2</b><br>
+This has been used in the last analysis and the telescopic sum.<br>
+Statement: i=0...k-1 2i = 1 + 2 + 22 + ... + 2k-1 = 2k - 1<br>
+Proof by in induction:<br>base case k=2:   20 + 21 = 1 + 2 = 3 = 4 ­ 1 = 22 ­ 1<br>step k to k+1:      20 + ... + 2k-1 + 2k = 2k ­ 1 + 2k<br>
+= 2·2k ­ 1<br>= 2k+1 ­ 1<br>
+Statement<br>applied here<br>
+38<br>
+<hr>
+<A name=39></a><b>Array-like operations in extensible arrays</b><br>
+Some O(1) time operations in extensible arrays:<br>
+public int size() {<br>
+return count;<br>
+}<br>public int elementAt(int pos) {<br>
+return data[pos];<br>
+}<br>public void setElementAt(int pos, int value) {<br>
+data[pos] = value;<br>
+}<br>
+39<br>
+<hr>
+<A name=40></a><b>Summary of extensible arrays</b><br>
+§ Extensible arrays are an implementation of the Stack ADT that use O(n) <br>
+space<br>
+§ With the right extension policy, these operations take O(1) time<br>§ They also provide array-like operations at O(1) time<br>§ Implementing the Queue ADT with extensible arrays is not so convenient <br>
+(why?)<br>
+§ For greater convenience, we can use pointers<br>
+40<br>
+<hr>
+<A name=41></a><b>Extensible arrays in Java</b><br>
+§Java has data structures for extensible arrays: <br>
+Vectors and ArrayLists<br>
+§Vectors and ArrayLists are like arrays that can be extended as <br>necessary<br>
+§you don't have to worry about their size<br>
+§you don't have to extend them explicitly<br>
+§Vectors have Objects as elements<br>
+41<br>
+<hr>
+<A name=42></a><b>ArrayLists in Java</b><br>
+Import them:<br>import java.util.List; // ArrayList and Vector are Lists<br>import java.util.ArrayList;<br>Create an ArrayList:<br>List l1 = new ArrayList();<br>Programming against an Interface is more flexible.<br>
+Adding at index i moves following elements to the right:<br>al.add(i,p)<br>(Array)List and Vector use Generics since Java 5.0 (JDK 1.5):<br>
+42<br>
+List&lt;String&gt; stringList = new ArrayList&lt;String&gt;();<br>
+<hr>
+<A name=43></a><b>Vectors in Java</b><br>
+To use them you have to import them:<br>import java.util.Vector;<br>
+To create a vector v1:<br>Vector v1 = new Vector();<br>
+The size of vector v1 is:<br>v1.size()<br>
+To test whether v1 is empty:<br>v1.isEmpty()<br>
+43<br>
+<hr>
+<A name=44></a><b>Other vector &amp; arrayList methods in Java</b><br>
+To add an element--object <i>p</i>--at the end of vector v1 (arrayList a1):<br>v1.addElement(p); al.add(p);<br>
+To access the element at position <i>n </i>in vector v1 (arrayList a1):<br>e_n = v1.elementAt(n); e_n = al.get(n);<br>
+To assign element <i>p </i>to position <i>n </i>in vector v1:<br>v1.set(n, p); \\ note that this returns the<br>\\ object previously in that position<br>
+44<br>
+<hr>
+<A name=45></a><b>Reading</b><br>
+§ Weiss: Chapters 15, 17 and 20<br>
+§ Drozdek: Sections 4.2, 6.1 and 9.3.2<br>
+Next week: Linked lists<br>
+45<br>
+<hr>
+<A name=46></a>City, University of London<br>Northampton Square<br>London<br>EC1V 0HB<br>United Kingdom<br>
+T: +44 (0)20 7040 8406<br>E: ug-compsci@city.ac.uk<br>www.city.ac.uk/department-computer-science<br>
+46<br>
+<hr>
+</BODY>
+</HTML>

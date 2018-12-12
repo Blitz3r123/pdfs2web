@@ -1,0 +1,592 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML>
+<HEAD>
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<A name=1></a><b>IN2002 Data Structures and Algorithms </b><br>
+Lecture 9 (10 last week) ­ Graphs<br>
+Aravin Naren<br>Semester 1, 2018/19<br>
+1<br>
+<hr>
+<A name=2></a><b>Learning Objectives </b><br>
+§ Understand and be able to use the data structures <br>graphs<br>
+§ Be able to understand, apply and develop <br>algorithms to handle graphs. Including:<br>
+§Traversals<br>
+§Shortest paths<br>
+2<br>
+<hr>
+<A name=3></a><b>Trees and Graphs</b><br>
+3<br>
+<hr>
+<A name=4></a><b>Trees and graphs</b><br>
+§ Trees represent a set of elements and their relations.<br>§ Each element is stored in a node.<br>§ Relations go from parent to child nodes.<br>§ A node can have at most one parent.<br>
+§ Graphs extend the idea by removing the parent-child <br>
+restriction.<br>
+4<br>
+<hr>
+<A name=5></a><b>Nodes and links between nodes</b><br>
+§ In heaps, the links represent the fact that child nodes have <br>
+lower values than their parents.<br>
+In binary search trees, left links represent the fact that <br>all values in the left subtree are less than its parent,<br>and all values in the right subtree are greater than it.<br>
+§ The value of a node and the knowledge of what its branches <br>
+represent allows guiding algorithms.<br>
+5<br>
+<hr>
+<A name=6></a><b>Non-hierarchical relations</b><br>
+§ Trees al ow a node only to have one parent.<br>§ Nodes may be related in the same way to different parent <br>
+nodes (e.g. family tree, web pages).<br>
+§ A situation associated with this are loops, which usual y <br>
+breaks tree algorithms.<br>
+§ Graphs provide a more general structure.<br>
+6<br>
+<hr>
+<A name=7></a><b>Graphs</b><br>
+Graphs al ow the connection of any node to any other node<br>
+Think of maps, dependencies, relationships, flow networks, <br>etc.<br>
+Algorithms to treat graphs vary, and often work by deriving a <br>tree out of the graph<br>
+7<br>
+<hr>
+<A name=8></a><b>Graph components</b><br>
+8<br>
+<hr>
+<A name=9></a><b>Representing systems</b><br>
+<b>Nodes </b>can represent states (places, conditions, situations), or <br>actions.<br>
+<b>Edges </b>represent links between the nodes: e.g., changes of <br>state or precedence of actions.<br>
+Graphs are usual y classified according to the information <br>edges carry.<br>
+9<br>
+<hr>
+<A name=10></a><b>Simple graphs</b><br>
+§ A simple graph consists of a set V <br>
+of vertices, with at most one edge <br>between each pair of vertices<br>
+a<br>
+§ In simple graphs, edges represent <br>
+b<br>
+c<br>
+a mutual relation between the <br>nodes<br>
+§ An edge is determined by the two <br>
+d<br>
+nodes it joins<br>
+10<br>
+<hr>
+<A name=11></a><b>Example: the tube (simple graph)</b><br>
+Euston<br>
+Kings X<br>
+Angel<br>
+Old St<br>
+Warren St<br>
+Russel  Sq<br>
+Farringdon<br>
+Barbican<br>
+Moorgate<br>
+Liverpool St<br>
+Holborn<br>
+Chancery Ln<br>
+St Paul's<br>
+Bank<br>
+What can this graph tell us?<br>
+11<br>
+<hr>
+<A name=12></a><b>Directed graphs</b><br>
+A directed graph (or digraph) <br>consists of:<br>
+a<br>
+§ a set V of vertices<br>§ a set E of edges (in a fully <br>
+b<br>
+c<br>
+connected digraph, E is <br>equivalent to V x V)<br>
+d<br>
+12<br>
+<hr>
+<A name=13></a><b>Directed graphs (2)</b><br>
+§ A graph can be viewed as representing a binary relation on <br>
+V.<br>
+§ An edge is determined by the precedent node, and the <br>
+dependent node<br>
+§ Simple graphs have a directed graph equivalent, but directed <br>
+graphs may not have a simple graph equivalent<br>
+13<br>
+<hr>
+<A name=14></a><b>Example: the tube (directed graph)</b><br>
+Euston<br>
+Kings X<br>
+Angel<br>
+Old St<br>
+Warren St<br>
+Russel  Sq<br>
+Farringdon<br>
+Barbican<br>
+Moorgate<br>
+Liverpool St<br>
+Holborn<br>
+Chancery Ln<br>
+St Paul's<br>
+What can this graph tell us?<br>
+Bank<br>
+14<br>
+<hr>
+<A name=15></a><b>Weighted graphs</b><br>
+Edges contain additional information: <br>a number representing time, cost or <br>
+a<br>
+1<br>
+0.8<br>
+distance, for example.<br>
+1<br>
+This number is the "weight" of the <br>
+b<br>
+1.5 c<br>
+edge .<br>
+1 1<br>
+If you are only considering "number of <br>
+d 1<br>
+moves", then the weight is 1 for each <br>move (e.g., for each edge).<br>The weight (or cost) of a path is the <br>sum of the weights of its edges.<br>
+15<br>
+<hr>
+<A name=16></a><b>Example: the tube (weighted graph)</b><br>
+2<br>
+2.5<br>
+Euston<br>
+Kings X<br>
+2<br>
+Angel<br>
+2<br>
+1.5 1.5<br>
+2<br>
+2.5<br>
+1.5 1.5<br>
+Old St<br>
+2<br>
+2<br>
+Warren St<br>
+Russel  Sq<br>
+Farringdon<br>
+1.5<br>
+1.5<br>
+1.5<br>
+1.5<br>
+1<br>
+1<br>
+1<br>
+Barbican<br>
+1<br>
+Moorgate<br>
+Liverpool St<br>
+Holborn<br>
+1<br>
+2<br>
+1<br>
+2<br>
+Chancery Ln 2<br>
+2.5 2.5 3<br>
+2<br>
+St Paul's 2<br>
+3<br>
+Bank<br>
+What can this graph tell us?<br>
+2<br>
+16<br>
+<hr>
+<A name=17></a><b>Some definitions</b><br>
+§ A vertex vi is said to be <b>adjacent </b>to a vertex vj if there is an <br>
+edge from vi to vj .<br>
+§ A <b>path </b>(or walk) from v1 to vn is a sequence of consecutive <br>
+edges: v1--&gt;v2--&gt;v3--&gt; .... --&gt;vn .<br>
+§ A <b>circuit </b>is a path from a vertex to itself, without repeating <br>
+any edges.<br>
+§ A <b>cycle </b>is a circuit in which no vertex is repeated.<br>
+17<br>
+<hr>
+<A name=18></a><b>Representing Graphs</b><br>
+18<br>
+<hr>
+<A name=19></a><b>Representing graphs</b><br>
+This far we have talked about what graphs represent<br>
+... but how can graphs be represented in a system?<br>
+Basical y you need to represent the nodes and the links.<br>
+19<br>
+<hr>
+<A name=20></a><b>Adjacency matrix</b><br>
+a<br>
+An adjacency matrix is a <br>
+b<br>
+c<br>
+|V| x |V| matrix a such that aij is 1 <br>
+when there is an edge that goes <br>
+d<br>
+from vi to vj.<br>
+nodes<br>
+Nodes are thus represented as <br>
+<b>a</b><br>
+<b>b</b><br>
+<b>c</b><br>
+<b>d</b><br>
+rows and columns, and edges are <br>
+a<br>
+0<br>
+1<br>
+1<br>
+1<br>
+represented as elements of the <br>
+b<br>
+1<br>
+0<br>
+0<br>
+0<br>
+matrix.<br>
+c<br>
+0<br>
+1<br>
+0<br>
+1<br>
+edges<br>
+d<br>
+1<br>
+0<br>
+0<br>
+0<br>
+20<br>
+<hr>
+<A name=21></a><b>Adjacency list</b><br>
+a<br>
+Adjacency lists show<br>
+b<br>
+c<br>
+the dependants of a<br>node in linked lists.<br>
+d<br>
+Nodes can be<br>
+nodes<br>
+edges<br>
+represented as <br>
+a<br>
+b<br>
+c<br>
+d null<br>
+elements in a linked<br>list as well<br>
+b<br>
+a null<br>
+c<br>
+b<br>
+d null<br>
+null d<br>
+a null<br>
+21<br>
+<hr>
+<A name=22></a><b>Adjacency list variant</b><br>
+a<br>
+Nodes can also be <br>
+b<br>
+c<br>
+represented as <br>elements in an array.<br>
+d<br>
+For sparse graphs <br>an expandable <br>
+nodes<br>
+edges<br>
+array a good <br>
+b<br>
+a<br>
+c<br>
+d null<br>
+solution.<br>
+b<br>
+a null<br>
+c<br>
+b<br>
+d null<br>
+d<br>
+a null<br>
+22<br>
+<hr>
+<A name=23></a><b>Graph traversals</b><br>
+23<br>
+<hr>
+<A name=24></a><b>Graph traversals</b><br>
+As with trees, graphs may be traversed depth-first or breadth-<br>first<br>The algorithms are very similar to those for trees, except that <br>encountered vertices need to be marked so that circuits do not <br>lead to infinite traversing.<br>Depth-first traversal is used in other algorithms:<br>
+§ <b>Topological sort</b>: order the vertices so no edge goes<br>
+backwards<br>
+§ <b>Strongly connected elements</b>: sets of vertices,<br>
+each of which can be reached from any other<br>
+24<br>
+<hr>
+<A name=25></a><b>Depth-first traversal</b><br>
+<i>Function dft(Vertex v):<br>visit v<br>FOR ALL vertices u adjacent to v</i><br>
+<i>IF u has not been visited THEN</i><br>
+<i>dft(u)</i><br>
+<i>Function depthFirstSearch():<br>FOR ALL vertices v</i><br>
+<i>IF v has not been visited THEN</i><br>
+<i>dft(v)</i><br>
+25<br>
+<hr>
+<A name=26></a><b>Depth-first traversal </b><br>
+a<br>
+b<br>
+c<br>
+d<br>
+e<br>
+f<br>
+g<br>
+h<br>
+i<br>
+j<br>
+26<br>
+<hr>
+<A name=27></a><b>Breadth-first traversal</b><br>
+<i>Function breadthFirstSearch():<br>create queue q<br>FOR ALL vertices v</i><br>
+<i>IF v has not been visited</i><br>
+<i>visit v </i><br>
+Note that only new <br>
+<i>enqueue v in q</i><br>
+vertices are added <br>
+<i>WHILE q is not empty</i><br>
+to the queue<br>
+<i>u  vertex dequeued from q<br>FOR ALL vertices w adjacent to u</i><br>
+<i>IF w has not been visited</i><br>
+<i>visit w<br>enqueue w in q</i><br>
+27<br>
+<hr>
+<A name=28></a><b>Breadth-first traversal  </b><br>
+a<br>
+b<br>
+c<br>
+d<br>
+e<br>
+f<br>
+g<br>
+h<br>
+i<br>
+j<br>
+28<br>
+<hr>
+<A name=29></a><b>Shortest Path Algorithms</b><br>
+29<br>
+<hr>
+<A name=30></a><b>Shortest path algorithms</b><br>
+<b>all-to-all </b>A simple algorithm takes O(|V|3) time, this can be improved a bit.<br><b>one-to-all </b>There are several algorithms; we consider Dijkstra's, which <br>assumes all weights are positive.<br><b>all-to-one </b>Use a one-to-all algorithm on the reversed graph.<br><b>one-to-one </b>No faster algorithm is known than using a one-to-all algorithm <br>until the desired target is reached<br>
+30<br>
+<hr>
+<A name=31></a><b>Dijkstra's shortest path algorithm</b><br>
+The algorithm maintains:<br>
+§ A set <b>toBeChecked </b>of vertices whose shortest path is not yet known. Initially <br>
+this set is V<br>
+§ An array <b>currDist </b>giving the length of shortest path from start to every other <br>
+vertex using the checked nodes. Initially 0 for start and - (or infinite) for every <br>other vertex<br>
+§ An array <b>predecessor </b>giving the previous vertex on the current shortest path, if <br>
+any<br>
+Until toBeChecked is empty:<br>
+§ extract from toBeChecked the closest vertex<br>§ update adjacent vertices<br>
+31<br>
+<hr>
+<A name=32></a><b>Example of Dijkstra's algorithm</b><br>
+Shortest distance from d<br>
+<b>a</b><br>
+<b>b</b><br>
+<b>c</b><br>
+<b>d</b><br>
+<b>e</b><br>
+<b>f</b><br>
+<b>g</b><br>
+<b>h</b><br>
+<b>i</b><br>
+<b>j</b><br>
+toBeChecked<br>
+x<br>
+x<br>
+x<br>
+x<br>
+x<br>
+x<br>
+x<br>
+x<br>
+x<br>
+x<br>
+currDist<br>
+-<br>
+-<br>
+-<br>
+0<br>
+-<br>
+-<br>
+-<br>
+-<br>
+-<br>
+-<br>
+predecessor<br>
+32<br>
+<hr>
+<A name=33></a><b>Example of Dijkstra's algorithm (2)</b><br>
+<b>a</b><br>
+<b>b</b><br>
+<b>c</b><br>
+<b>d</b><br>
+<b>e</b><br>
+<b>f</b><br>
+<b>g</b><br>
+<b>h</b><br>
+<b>i</b><br>
+<b>j</b><br>
+toBeChecked<br>
+x<br>
+x<br>
+x<br>
+x<br>
+x<br>
+x<br>
+x<br>
+x<br>
+x<br>
+currDist<br>
+4<br>
+-<br>
+-<br>
+0<br>
+-<br>
+-<br>
+-<br>
+1<br>
+-<br>
+-<br>
+predecessor<br>
+d<br>
+d<br>
+33<br>
+lowest unchecked goes next<br>
+<hr>
+<A name=34></a><b>Example of Dijkstra's algorithm (3) </b><br>
+<b>a</b><br>
+<b>b</b><br>
+<b>c</b><br>
+<b>d</b><br>
+<b>e</b><br>
+<b>f</b><br>
+<b>g</b><br>
+<b>h</b><br>
+<b>i</b><br>
+<b>j</b><br>
+toBeChecked<br>currDist<br>predecessor<br>
+lowest unchecked goes next<br>
+34<br>
+<hr>
+<A name=35></a><b>Example of Dijkstra's algorithm (4) </b><br>
+<b>a</b><br>
+<b>b</b><br>
+<b>c</b><br>
+<b>d</b><br>
+<b>e</b><br>
+<b>f</b><br>
+<b>g</b><br>
+<b>h</b><br>
+<b>i</b><br>
+<b>j</b><br>
+toBeChecked<br>currDist<br>predecessor<br>
+lowest unchecked goes next<br>
+35<br>
+<hr>
+<A name=36></a><b>Example of Dijkstra's algorithm (5) </b><br>
+<b>a</b><br>
+<b>b</b><br>
+<b>c</b><br>
+<b>d</b><br>
+<b>e</b><br>
+<b>f</b><br>
+<b>g</b><br>
+<b>h</b><br>
+<b>i</b><br>
+<b>j</b><br>
+toBeChecked<br>currDist<br>predecessor<br>
+lowest unchecked goes next<br>
+36<br>
+<hr>
+<A name=37></a><b>Example of Dijkstra's algorithm (6) </b><br>
+<b>a</b><br>
+<b>b</b><br>
+<b>c</b><br>
+<b>d</b><br>
+<b>e</b><br>
+<b>f</b><br>
+<b>g</b><br>
+<b>h</b><br>
+<b>i</b><br>
+<b>j</b><br>
+toBeChecked<br>currDist<br>predecessor<br>
+lowest unchecked goes next<br>
+37<br>
+<hr>
+<A name=38></a><b>Example of Dijkstra's algorithm (skipped to the end)</b><br>
+<b>a</b><br>
+<b>b</b><br>
+<b>c</b><br>
+<b>d</b><br>
+<b>e</b><br>
+<b>f</b><br>
+<b>g</b><br>
+<b>h</b><br>
+<b>i</b><br>
+<b>j</b><br>
+toBeChecked<br>currDist<br>
+4<br>
+9<br>
+11<br>
+0<br>
+5<br>
+8<br>
+12<br>
+1<br>
+9<br>
+11<br>
+predecessor<br>
+d<br>
+f<br>
+f<br>
+a<br>
+e<br>
+j<br>
+d<br>
+f<br>
+i<br>
+38<br>
+<hr>
+<A name=39></a><b>Dijkstra's algorithm</b><br>
+<i>FOR all vertices v</i><br>
+<i>currDist[v] &lt;- infinity;</i><br>
+<i>currDist[start] &lt;- 0;<br>toBeChecked &lt;- V;<br>WHILE toBeChecked is not empty</i><br>
+<i>v &lt;- a vertex in toBeChecked with minimal currDist(v);<br>remove v from toBeChecked;<br>FOR all vertices u adjacent to v and in toBeChecked</i><br>
+<i>IF currDist[u] &gt; currDist[v] + weight(vu)</i><br>
+<i>currDist[u] &lt;- currDist[v] + weight(vu);<br>predecessor[u] &lt;- v;</i><br>
+39<br>
+<hr>
+<A name=40></a><b>Analysis of Dijkstra's algorithm</b><br>
+With adjacency list representation:<br>
+§ The outer while loop is executed O(|V|) times, and on each iteration, <br>
+extracting vertices takes O(|V|) time<br>
+§ The inner for loop is executed a total of O(|E|) times, performing O(1) <br>
+work each time<br>
+§ Giving a total of O(|V|2) time (because |E| &lt;= |V|2)<br>
+40<br>
+<hr>
+<A name=41></a><b>Graph Problems</b><br>
+41<br>
+<hr>
+<A name=42></a><b>Graph problems</b><br>
+<b>Polynomial </b>time algorithms exist for the following problems:<br>
+§ all-to-all shortest paths<br>§ topological sort order the vertices so no edge goes backwards<br>§ strongly connected components sets of vertices, each of which can be reached <br>
+from any other<br>
+§ minimal spanning tree: find a minimal cost tree that covers al  vertices (Kruskal <br>
+algorithm)<br>
+§ network flow (Dinic algorithm)<br>
+42<br>
+<hr>
+<A name=43></a><b>Hard graph problems</b><br>
+Recall <b>NP-complete </b>problems: the best known algorithms are exponential, <br>and if any one has a polynomial algorithm, it can be adapted to all of them.<br>Hence it is conjectured that no such algorithm exists.<br>NP-complete graph problems include:<br>
+§ travelling salesman: Find the shortest circuit that includes all vertices<br>§ longest cycle<br>§ largest clique<br>
+Other problems are unclassified, e.g., testing whether two graphs are <br>equivalent (isomorphic).<br>
+43<br>
+<hr>
+<A name=44></a><b>Reading</b><br>
+§ Weiss: Sections 13.1-13.4  <br>
+§ Drozdek: Sections 8.1, 8.2 and 8.3   <br>
+Next session: Revision<br>
+44<br>
+<hr>
+<A name=45></a>City, University of London<br>Northampton Square<br>London<br>EC1V 0HB<br>United Kingdom<br>
+T: +44 (0)20 7040 8406<br>E: ug-compsci@city.ac.uk<br>www.city.ac.uk/department-computer-science<br>
+45<br>
+<hr>
+</BODY>
+</HTML>
