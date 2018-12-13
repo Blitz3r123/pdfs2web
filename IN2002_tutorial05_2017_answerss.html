@@ -1,0 +1,99 @@
+<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><p class="lead">
+<a name="1"></a><b>Module IN2002--Data Structures and Algorithms </b><br>
+<b>Answers to Exercise Sheet 5 </b><br>
+ <br> <br>1. Work out (using pictures) what the following procedure does on circular lists: <br> <br>public void modify(CList list) { <br>
+if (! isEmpty()) { <br>
+Node tmp = tail.next; <br>tail.next = tail.next.next; <br>tmp.next = tmp; <br>
+} <br>
+} <br> <br>Consider the cases where the list has more than one node, only one node, or no nodes. <br> <br> <br>
+  First we create a circular list with random information to test the code on: <br>
+tail<br>
+3<br>
+5<br>
+4<br>
+1<br>
+ <br>
+ <br>if (! isEmpty()) checks that the list has at least one node <br> <br>Node tmp = tail.next; <br>
+tmp<br>
+tail<br>
+3<br>
+5<br>
+4<br>
+1<br>
+ <br>
+ <br>tail.next = tail.next.next; <br> <br>
+<hr>
+<a name="2"></a>tmp<br>
+tail<br>
+3<br>
+5<br>
+4<br>
+1<br>
+ <br>
+ <br>tmp.next = tmp; <br>
+tmp<br>
+tail<br>
+3<br>
+5<br>
+4<br>
+1<br>
+ <br>
+ <br> <br> <br>
+  So the function removes the head from the list, and creates a new circular list <br>
+containing only the former head. However, this new circular list is not returned by the <br>function. <br>
+ <br>
+  With only one node, nothing happens: <br>
+tail<br>
+tail<br>
+tmp<br>
+1<br>
+1<br>
+ <br>
+  With no nodes, nothing happens. <br>
+ <br> <br>2. Write functions that return the maximum of the numbers of  (where the info in each node is <br>a number): <br> <br>
+<hr>
+<a name="3"></a>a)  A circular list <br>int findmax() { <br>
+if (! notEmpty()) { <br>
+node p = tail.next; <br>int max = p.info; <br>while (p != tail) { <br>
+p = p.next; <br>if (p.info &gt; max) <br>
+max = p.info; <br>
+} <br>return max; <br>
+} else <br>
+return Integer.MIN_VALUE; <br>// This value indicates the empty list. <br>
+} <br>
+ <br>
+b)  A doubly linked list <br>
+ <br>int findmax() { <br>
+if (! notEmpty()) { <br>
+node p = head; <br>int max = p.info; <br>while (p != tail) { <br>
+p = p.next; <br>if (p.info &gt; max) <br>
+max = p.info; <br>
+} <br>return max; <br>
+} else <br>
+return Integer.MIN_VALUE; <br>// This value indicates the empty list. <br>
+} <br> <br> <br>3. Write a procedure to swap the first two nodes of a doubly linked list. <br>Have you covered all the cases? <br> <br>
+  We first want to check that the list has at least two nodes. A convenient test is to <br>
+compare head and tail If the list has only one node, they will be equal. If the list is <br>empty, they will both be null, and therefore also equal. If the list has at least two <br>nodes, the two pointers will refer to different nodes. <br>
+ <br>
+  The simplest thing is just to swap the info components of the first two nodes <br>
+(provided there are at least two): <br>
+ <br>void swapFirstTwo() { <br>
+if (head != tail) { <br>
+int tmp = head.infor; <br>head.info = head.next.info; <br>head.next.info = tmp; <br>
+} <br>
+<hr>
+<a name="4"></a>} <br> <br>
+  But the intention of the question was an exercise in pointer manipulation. An easy <br>
+method is to introduce a pointer to the node after the head, and update head at the very <br>end: <br>
+ <br>void swapFirstTwo() { <br>
+if (head != tail) { <br>
+DLLNode neck = head.next; <br>head.next = neck.next; <br>neck.next = head; <br>head.prev = neck; <br>neck.prev = null; <br>if (tail == neck) // two element list <br>
+tail = head; <br>
+head = neck; <br>
+} <br>
+} <br> <br> <br>
+  Note that if the second node is also the last one, tail must be set to the old first node. <br>
+<hr>
+
+
+</p></body>

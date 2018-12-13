@@ -1,0 +1,148 @@
+<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><p class="lead">
+<a name="1"></a><b>Module IN2002--Data Structures and Algorithms </b><br>
+<b>Answers to Exercise Sheet 4 </b><br>
+ <br> <br>1. Suppose we have Node p and Node q referring to the same list of nodes containing <br>[5, 8, 3]. Draw the list, and the results of the following statements, applied in order: <br> <br>p.next = null; <br>p = null; <br> <br>
+  The initial list is: <br>
+Node p<br>
+Node q<br>
+5<br>
+8<br>
+3<br>
+null<br>
+ <br>
+ <br>p.next = null; <br>
+Node p<br>
+Node q<br>
+5<br>
+null<br>
+ <br>
+ <br>
+  We would have both p and q referring to the same list with a single element (with info <br>
+5). <br>
+ <br> <br>p = null; <br> <br>
+<hr>
+<a name="2"></a>Node p<br>
+Node q<br>
+null<br>
+5<br>
+null<br>
+ <br>
+  This sets the value of p to null (no longer refers to a list), whereas q still refers to the <br>
+same list as before. <br>
+ <br> <br> <br>2. Suppose we have Node p referring to a list of nodes containing [3, 5, 4, 1]. Draw <br>the list, and the results of the following statements, applied in order: <br> <br>p.next = p.next.next; <br>p.next = new Node(7, p.next); <br>p.next.next = new Node(8); <br>p.next.next = p; <br> <br>
+  The initial list is: <br>
+Node p<br>
+3<br>
+5<br>
+4<br>
+1<br>
+null<br>
+ <br>
+ <br>p.next = p.next.next; <br>
+<hr>
+<a name="3"></a>Node p<br>
+3<br>
+5<br>
+4<br>
+1<br>
+null<br>
+ <br>
+  We could have omitted the node with value 5 above, because nothing is pointing to it, <br>
+so it is not really in the list any longer. <br>
+ <br> <br>p.next = new Node(7, p.next); <br>
+Node p<br>
+7<br>
+3<br>
+5<br>
+4<br>
+1<br>
+null<br>
+ <br>
+p.next.next = new Node(8); <br>
+Node p<br>
+7<br>
+8<br>
+null<br>
+3<br>
+5<br>
+4<br>
+1<br>
+null<br>
+ <br>
+  We could have omitted the nodes with values 5, 4 and 1 above, because nothing is <br>
+pointing to them, so they are not really in the list any longer. <br>
+ <br>p.next.next = p; <br>
+<hr>
+<a name="4"></a>Node p<br>
+7<br>
+8<br>
+null<br>
+3<br>
+5<br>
+4<br>
+1<br>
+null<br>
+ <br>
+  OR, ignoring all the &quot;dead&quot; elements... <br>
+Node p<br>
+3<br>
+7<br>
+ <br>
+ <br>3. Work out (using pictures) what the following procedure does: <br> <br>public void modify(SLList list) { <br>
+if (list.head != null &amp;&amp; list.head.next != null) { <br>
+Node tmp = list.head.next; <br>list.head.next = tmp.next; <br>tmp.next = list.head; <br>list.head = tmp; <br>
+} <br>
+} <br> <br> <br>
+  Let&apos;s try the code on this list: <br>
+head tail<br>
+null<br>
+ <br>
+if (list.head != null &amp;&amp; list.head.next != null) { <br>
+<hr>
+<a name="5"></a>  Checks that the list is not empty and has at least two elements. <br>
+ <br>
+ <br>Node tmp = list.head.next; <br>
+head tail<br>
+null<br>
+tmp<br>
+ <br>
+ <br> <br>list.head.next = tmp.next; <br>
+head tail<br>
+null<br>
+tmp<br>
+ <br>
+ <br>tmp.next = list.head; <br>
+head tail<br>
+null<br>
+tmp<br>
+ <br>
+ <br>list.head = tmp; <br>
+<hr>
+<a name="6"></a>head tail<br>
+null<br>
+tmp<br>
+ <br>
+  So what the algorithm does is to switch the two first elements in the list. <br>
+ <br> <br>4.  <br>a) Write a method that checks whether two singly linked lists have the same elements (in any <br>order). You should not modify either list. What time (in big-O notation) does this method <br>take? <br>
+  Assuming that there are no duplicates and that the lists have the same length: <br>
+ <br>boolean comparelists(SLList list1, SLList list2) { <br>
+Node p1 = list1.head ; <br>while (p1 != null) { <br>
+Node p2 = list2.head; <br>while (p2.info != p1.info) { <br>
+if (p2 == null) <br>
+return false; <br>
+p2 = p2.next; <br>
+} <br>p1 = p1.next; <br>
+} <br>return true; <br>
+} <br> <br>
+  This function is O(n2) time. The outside loop traverses list p1, requiring O(n) <br>
+iterations. The internal loop traverses p2, requiring O(n) each time. Since the loops <br>are nested, the overall time is O(n)xO(n) = O(n2)  <br>
+ <br>
+  Note that comparing lengths requires O(n) time, so it would not change the time <br>
+complexity found in this case. <br>
+ <br> <br>b) What would be the time complexity if you were checking whether the lists have the same <br>elements in the same order? <br> <br>
+  O(n), as for this, both lists would be traversed in parallel, at the same time. In other <br>
+words, the nodes of list1 are visited one at the time (O(n)), and only one node of list2 <br>is visited in each iteration (O(1)). O(n)xO(1) = O(n). <br>
+<hr>
+
+
+</p></body>

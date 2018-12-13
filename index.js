@@ -35,8 +35,8 @@ fs.readdir(__dirname + '/files', (err, data) => {
 			}
 
 			if(htmlFiles.length < pdfFiles.length){
-				console.log('htmlfiles.length = ' + htmlFiles.length);
-				console.log('pdfFiles.length = ' + pdfFiles.length);
+				// console.log('htmlfiles.length = ' + htmlFiles.length);
+				// console.log('pdfFiles.length = ' + pdfFiles.length);
 				// Delete all html files, reset html file count and html array
 				for(var i = 0; i < htmlFileCount; i++){
 					// Check that the file exists
@@ -58,27 +58,34 @@ fs.readdir(__dirname + '/files', (err, data) => {
 				runBatCode(__dirname + '/files/script.bat');
 			}
 
-			var outputPage = '<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><p class="lead">';
-
+			var outputPage = '';
+			var links = [];
 			for(var i = 0; i < htmlFiles.length; i++){
 				if((htmlFiles[i].slice(-6) === 's.html') && (!htmlFiles[i].includes('answers.html'))){
-					// console.log(htmlFiles[i]);
+					links.push(htmlFiles[i]);
 					var page = fs.readFileSync(__dirname + '/files/' + htmlFiles[i]);
 					const $ = cheerio.load(page);
+					outputPage = '<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><p class="lead">'
 					outputPage = outputPage + $('body').html();
+					outputPage = outputPage + '</p></body>';
+
+					fs.writeFile(htmlFiles[i], outputPage, (err) => {
+						if (err) console.log(err);
+					});
 				}
 			}
-			outputPage = outputPage + '</p></body>';
-			// console.log(outputPage);
+			
+			var indexOutput = '<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><div class="container">';
+			for(var i = 0; i < links.length; i++){
+				indexOutput = indexOutput + '<a href="files/' +links[i]+ '" class="btn btn-primary" style="width: 50%; margin-left: 25%; margin-top: 3vh;">' +links[i]+ '</a><br>';
+			}
+			indexOutput = indexOutput + '</div></body></html>';
 
-			fs.writeFile('outputPage.html', outputPage, (err) => {
+			fs.writeFile('index.html', indexOutput, (err) => {
 				if (err) console.log(err);
 			});
 
-			// for(var i = 0; i < htmlFiles.length; i++){
-				
-
-				// console.log($(''));
+			// console.log($(''));
 			// }
 			// All files should be sorted at this point and all html files should be deleted
 			// Create the bat code to convert all pdf files to html 
@@ -145,6 +152,6 @@ function runBatCode(filename){
 	process.exec(filename, (error, stdout, stderr) => {
 		// console.log(stdout);
 		if (error) console.log(error);
-		console.log('.bat file executed.');
+		// console.log('.bat file executed.');
 	});
 }

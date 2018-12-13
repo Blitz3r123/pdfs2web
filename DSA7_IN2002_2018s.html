@@ -1,0 +1,441 @@
+<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><p class="lead">
+<a name="1"></a><b>IN2002 Data Structures and Algorithms </b><br>
+Lecture 7 &#xFFFD; Trees<br>
+Aravin Naren<br>Semester 1, 2018/19<br>
+1<br>
+<hr>
+<a name="2"></a><b>Learning Objectives </b><br>
+&#xFFFD; Understand and be able to use the data structures <br>trees and binary search trees<br>
+&#xFFFD; Be able to understand, apply and develop <br>algorithms to handle the data structures above. <br>Including:<br>
+&#xFFFD;Access to keys in trees<br>
+&#xFFFD;Inserting keys in trees<br>&#xFFFD;Delete keys from trees<br>
+2<br>
+<hr>
+<a name="3"></a><b>Trees*</b><br>
+* Seen in this module lecture 3<br>
+3<br>
+<hr>
+<a name="4"></a><b>Trees</b><br>
+&#xFFFD; Trees are useful for hierarchical systems:<br>
+&#xFFFD; organisations<br>
+&#xFFFD; geographical regions<br>
+&#xFFFD; classes<br>&#xFFFD; language processing<br>
+&#xFFFD; Artificial hierarchies can be created (e.g., heaps)<br>&#xFFFD; Because of branching, trees can hold many keys without <br>
+having great height<br>
+&#xFFFD; Recursive definition is often used<br>
+4<br>
+<hr>
+<a name="5"></a><b>Tree terminology  (reminder)</b><br>
+&#xFFFD; <b>Trees </b>are composed of nodes <br>and branches<br>&#xFFFD; <b>Nodes </b>contain a label (data) and <br>branches to other nodes<br>&#xFFFD; <b>Root </b>is the top node<br>&#xFFFD; <b>Leaves </b>are nodes that have no <br>branches deriving from them<br>
+5<br>
+<hr>
+<a name="6"></a><b>More tree terminology  (reminder)</b><br>
+&#xFFFD; The nodes n2,n3 at the end of a <br>
+node n1&apos;s branches are its <br><b>children</b>, and n1 is the <b>parent </b>of <br>n2,n3.<br>
+&#xFFFD; The root is thus a node with no <br>
+parents.<br>
+&#xFFFD; The leaves are nodes with no <br>
+children.<br>
+6<br>
+<hr>
+<a name="7"></a><b>Tree properties  (reminder)</b><br>
+&#xFFFD; The tree&apos;s <b>height </b>is the number of <br>
+edges on the longest downward <br>path between the root and a leaf<br>
+&#xFFFD; The <b>depth </b>of a node is the <br>
+number of edges from the node to <br>the tree&apos;s root node. It refers to <br>the distance to the root<br>
+&#xFFFD; A node&apos;s <b>level </b>is its <b>depth + 1<br></b>&#xFFFD; A tree&apos;s <b>size </b>is the number of <br>
+nodes it contains<br>
+7<br>
+Note that trees have no loops<br>
+<hr>
+<a name="8"></a><b>A well-known example</b><br>
+Common file systems are <br>organised as trees.<br>
+8<br>
+<hr>
+<a name="9"></a><b>Representation in Trees</b><br>
+9<br>
+<hr>
+<a name="10"></a><b>Representation in trees</b><br>
+Nodes represent things.<br>
+Branches represent links between the nodes,<br>i.e., links between what nodes represent.<br>
+All this information is implicit in the tree.<br>
+10<br>
+<hr>
+<a name="11"></a><b>A &quot;pre-sorting&quot; tree</b><br>
+&#xFFFD; This tree represents an abstract <br>
+hierarchy: &quot;greater than&quot;<br>
+&#xFFFD; Nodes represent numbers<br>&#xFFFD; Branches represent ordinality <br>
+(&quot;greater than&quot;)<br>
+&#xFFFD; Does this tree look familiar?<br>
+11<br>
+<hr>
+<a name="12"></a><b>About tree algorithms</b><br>
+&#xFFFD; Any node in the tree can be <br>
+considered the root of a subtree<br>
+&#xFFFD; This allows a recursive definition:<br>
+<b>A tree is either empty or a tree-<br>node with a label (data) and <br>branches to other trees</b><br>
+12<br>
+<hr>
+<a name="13"></a><b>Binary Trees</b><br>
+13<br>
+<hr>
+<a name="14"></a><b>Building a binary tree</b><br>
+&#xFFFD; <b>Binary tree:</b><br>
+&#xFFFD; each node has at most two <br>
+branches<br>
+14<br>
+<hr>
+<a name="15"></a><b>Binary trees in Java</b><br>
+public class TreeNode {<br>
+public int key;<br>public TreeNode left, right;<br>
+public TreeNode(int k, TreeNode l,TreeNode r) {<br>
+key = k; left = l; right = r;<br>
+}<br>
+public TreeNode(int k) {<br>
+this(k, null, null);<br>
+}<br>
+}<br>
+15<br>
+<hr>
+<a name="16"></a><b>Building a binary tree</b><br>
+TreeNode t =<br>
+new TreeNode(5,<br>
+new TreeNode(4),<br>new TreeNode(6, new TreeNode(7), null));<br>
+16<br>
+<hr>
+<a name="17"></a><b>Recursion in trees</b><br>
+Tree algorithms can be defined recursively, by evaluating the current tree and the <br>trees branching from it<br>
+public int size(TreeNode t) {<br>
+if (t == null)<br>
+return 0;<br>
+return size(t.left) + 1 + size(t.right);<br>
+}<br>public int height(TreeNode t) {<br>
+if (t == null)<br>
+return 0;<br>
+return 1 + Math.max(height(t.left), height(t.right));<br>
+}<br>
+17<br>
+<hr>
+<a name="18"></a><b>Tree Traversals</b><br>
+18<br>
+<hr>
+<a name="19"></a><b>Tree traversals</b><br>
+Many applications involve visiting the nodes in a certain order.<br>
+Let&apos;s say we have procedure<br>void visit(TreeNode p);<br>which, for example, prints the node&apos;s label.<br>This can be done in different sequences.<br>
+For simplicity, we will define the traversals for binary trees.<br>
+19<br>
+<hr>
+<a name="20"></a><b>Depth First Traversals</b><br>
+20<br>
+<hr>
+<a name="21"></a><b>Depth First Traversal</b><br>
+&#xFFFD; Nodes are visited going as far as <br>
+possible through the first branch<br>
+&#xFFFD; Once a leaf is found, the <br>
+algorithm backtracks until it can <br>find an unvisited branch<br>
+21<br>
+<hr>
+<a name="22"></a><b>Recursive definition</b><br>
+&#xFFFD; When a depth-first traversal is in a node, it must:<br>
+&#xFFFD; <b>visit </b>that node, (V)<br>
+&#xFFFD; traverse the <b>left </b>subtree (L)<br>
+&#xFFFD; traverse the <b>right </b>subtree (R)<br>
+&#xFFFD; However, this could be done in any order:<br>
+&#xFFFD; if visit is done first (VLR), then it is a <b>preorder </b>traversal<br>
+&#xFFFD; if visit is done in between (LVR), then it is <b>inorder </b>traversal<br>
+&#xFFFD; if visit is done last (LRV), then it is <b>postorder </b>traversal<br>
+22<br>
+<hr>
+<a name="23"></a><b>Preorder traversal</b><br>
+The sequence is:<br>&#xFFFD; visit the current node first<br>&#xFFFD; traverse the left subtree<br>&#xFFFD; traverse the right subtree<br>
+<i>Function preorder (node):<br>IF node  null THEN</i><br>
+<i>visit node<br>preorder (left child of node)<br>preorder (right child of node)</i><br>
+23<br>
+<hr>
+<a name="24"></a><b>... preorder traversal</b><br>
+24<br>
+<hr>
+<a name="25"></a><b>(stack ADT)</b><br>
+public interface Stack&lt;T&gt; {<br>
+// Is the stack empty?<br>
+boolean isEmpty();<br>
+// Push one element onto the stack<br>void push(T elt);<br>
+// Remove and return the most recently pushed<br>// element not already popped.<br>// Precondition: ! isEmpty()<br>T pop();<br>
+}<br>
+25<br>
+<hr>
+<a name="26"></a><b>... iterative preorder traversal </b><br>
+The trick is to realise that the<br>preorder actually keeps a stack<br>
+26<br>
+<hr>
+<a name="27"></a><b>... iterative preorder traversal</b><br>
+void iterativePreorder(TreeNode p) {<br>
+if (p != null){<br>
+Stack&lt;TreeNode&gt; stack = new StackImpl&lt;TreeNode&gt;();<br>stack.push(p); // add root<br>do {<br>
+p = stack.pop();<br>visit(p);  // visit after popping<br>if (p.right != null)<br>
+stack.push(p.right); // push right<br>
+if (p.left != null)<br>
+stack.push(p.left); // push left<br>
+} while (!stack.isEmpty()); // ready for next level<br>
+}<br>
+27<br>
+}<br>
+<hr>
+<a name="28"></a><b>Inorder traversal</b><br>
+The sequence is:<br>&#xFFFD; traverse the left subtree<br>&#xFFFD; visit the current node<br>&#xFFFD; traverse the right subtree<br>
+<i>Function inorder (node):<br>IF node  null THEN</i><br>
+<i>inorder (left child of node)<br>visit node<br>inorder (right child of node)</i><br>
+28<br>
+<hr>
+<a name="29"></a><b>... inorder traversal</b><br>
+29<br>
+<hr>
+<a name="30"></a><b>... iterative inorder traversal</b><br>
+void iterativeInorder(TreeNode p) {<br>
+Stack&lt;TreeNode&gt; stack = new StackImpl&lt;TreeNode&gt;();<br>for(;;) {<br>
+while (p != null) { // go as far as<br>
+stack.push(p);   // possible down<br>p = p.left;      // on the left side<br>
+}<br>if (stack.isEmpty())<br>
+break;    // stop when stack is empty<br>
+p = stack.pop();    // leftmost unvisited node<br>visit(p);    // visit<br>p = p.right;    // continue on right side<br>
+}<br>
+30<br>
+}<br>
+<hr>
+<a name="31"></a><b>... iterative inorder traversal</b><br>
+31<br>
+<hr>
+<a name="32"></a><b>Postorder traversal</b><br>
+The sequence is:<br>&#xFFFD; traverse the left subtree<br>&#xFFFD; traverse the right subtree<br>&#xFFFD; visit the node<br>
+<i>Function postorder (node):<br>IF node  null THEN</i><br>
+<i>postorder (left child of node)<br>postorder (right child of node)<br>visit node</i><br>
+32<br>
+<hr>
+<a name="33"></a><b>... postorder traversal</b><br>
+33<br>
+<hr>
+<a name="34"></a><b>Iterative postorder traversal</b><br>
+We only store the parent <br>nodes, not the current <br>ones.<br>
+We need to store with the <br>nodes information on <br>whether we are traversing <br>the left or right branch.<br>
+34<br>
+<hr>
+<a name="35"></a><b>Analysis</b><br>
+&#xFFFD; In all cases the memory complexity equals the depth of the tree.<br>&#xFFFD; In balanced binary trees the depth is O(log n), and so is the <br>
+memory complexity.<br>
+&#xFFFD; This memory complexity occurs in the recursion stack and in the <br>
+explicit stack. The recursive  algorithm is simpler than the iterative <br>one.<br>
+&#xFFFD; The choice of pre/in/post-order depends on how interested you are <br>
+in the nodes that are not leaves<br>
+35<br>
+<hr>
+<a name="36"></a><b>Breadth First Traversals</b><br>
+36<br>
+<hr>
+<a name="37"></a><b>Breadth First Traversal</b><br>
+If you are not so interested in leaves,<br>you may want to visit the nodes closer<br>to the root first (also cal ed level-order).<br>In this case, you traverse the tree by<br>levels:<br>&#xFFFD; Use a queue of nodes<br>&#xFFFD; The queue contains initially the root <br>
+only<br>
+&#xFFFD; Until the queue is empty,<br>
+&#xFFFD; Remove and visit the first node in the <br>
+queue<br>
+&#xFFFD; Add its children at the back of the queue<br>
+37<br>
+<hr>
+<a name="38"></a><b>Stepping through the breadth-first traversal</b><br>
+38<br>
+<hr>
+<a name="39"></a><b>The queue after visiting node 4</b><br>
+39<br>
+<hr>
+<a name="40"></a><b>The queue after visiting node 5</b><br>
+40<br>
+<hr>
+<a name="41"></a><b>(queue ADT)</b><br>
+As with stacks, the Queue interface can be used directly:<br>
+public interface Queue&lt;T&gt; {<br>
+boolean isEmpty();<br>void enqueue(T elt);<br>T dequeue();<br>
+}<br>
+41<br>
+<hr>
+<a name="42"></a><b>Breadth-first traversal &#xFFFD; Java</b><br>
+void breadthFirst(TreeNode p) {<br>
+if (p != null){<br>
+Queue&lt;TreeNode&gt; queue = new QueueImpl&lt;TreeNode&gt;();<br>queue.enqueue(p); // add root<br>while (!queue.isEmpty()) {<br>
+p = queue.dequeue(); // remove<br>visit(p); // visit<br>if (p.left != null) // add left child<br>
+queue.enqueue(p.left);<br>
+if (p.right != null) // add right child<br>
+queue.enqueue(p.right);<br>
+}<br>
+}<br>
+42<br>
+}<br>
+<hr>
+<a name="43"></a><b>Analysis of breadth-first</b><br>
+&#xFFFD; The queue will contain at any one time the rest of the current level and part of <br>
+the next level<br>
+&#xFFFD; The queue will be at its largest at the level with the most nodes<br>&#xFFFD; In a binary, perfectly balanced tree, this will occur at the lowest level. The size <br>
+would be of O(n).<br>
+43<br>
+<hr>
+<a name="44"></a><b>Binary Search Trees</b><br>
+44<br>
+<hr>
+<a name="45"></a><b>What if trees pre-sort (in some way)?</b><br>
+The search could concentrate<br>in sections of the tree,<br>gaining some time:<br>On average, O(log n) can<br>be obtained<br>
+The worst cases can be<br>kept close to O(log n)<br>as well, so long as the<br>tree is close to balanced<br>
+45<br>
+<hr>
+<a name="46"></a><b>Binary Search Trees</b><br>
+e.g. look for 5:<br>
+5&lt;8, go left<br>5&gt;3, go right<br>5&lt;6, go left<br>5&gt;4, go right<br>5=5, found it!<br>
+46<br>
+<hr>
+<a name="47"></a><b>What do branches represent?</b><br>
+Branches represent <b>ordering</b>:<br>
+Any key in the left subtree is lower than the parent&apos;s key<br>Any key in the right subtree is larger than the parent&apos;s key<br>... so no keys can be repeated<br>
+<b>Inorder </b>traversal produces an ordered sequence<br>Most operations visit only one <b>single path </b>down from the root.<br>If the tree is reasonably balanced, this takes O(log n)<br>
+47<br>
+<hr>
+<a name="48"></a><b>Search trees as sets</b><br>
+public class Tree implements Set {<br>
+private TreeNode root = null;<br>
+// Is the element in the tree?<br>public boolean search(int el) { .... }<br>
+// Add the element to the tree<br>public void insert(int el) { ... }<br>
+// Remove the element from the tree<br>public void delete(int el) { ... }<br>
+48<br>
+}<br>
+<hr>
+<a name="49"></a><b>Searching a binary search tree</b><br>
+public boolean search(int el) {<br>
+TreeNode p = root;<br>while (p != null) {<br>
+if (el == p.key)<br>
+Does this remind you of <br>
+return true;<br>
+some other algorithm?<br>
+if (el &lt; p.key)<br>
+p = p.left;<br>
+else if (el &gt; p.key)<br>
+p = p.right;<br>
+}<br>return false;<br>
+49<br>
+}<br>
+<hr>
+<a name="50"></a><b>Inserting a key into a search tree</b><br>
+Search for the key<br>
+If the key is present, do nothing<br>
+Otherwise, replace the null pointer you found at the end of <br>the search with a new node containing the key<br>
+(this requires a pointer to the parent node!)<br>
+50<br>
+<hr>
+<a name="51"></a><b>Insertion example</b><br>
+18<br>
+Insert 16, 9, 1, 32<br>
+17<br>
+29<br>
+15<br>
+25<br>
+36<br>
+51<br>
+<hr>
+<a name="52"></a><b>Insertion: Java code</b><br>
+public void insert(int el) {<br>
+if (root == null)  // the tree is empty<br>
+root = new TreeNode(el);<br>
+else {<br>
+TreeNode prev, p = root;<br>do {<br>
+if (el == p.key) return;  // node present<br>prev = p;<br>
+// remember parent<br>
+if (el &lt; p.key) p = p.left;<br>else p = p.right;<br>
+} while (p != null);  // until leaf found<br>if (el &lt; prev.key)  // determine left/right<br>
+prev.left = new TreeNode(el);<br>
+else<br>
+prev.right = new TreeNode(el);<br>
+}<br>
+52<br>
+}<br>
+<hr>
+<a name="53"></a><b>Deletion</b><br>
+p<br>
+First find the node containing<br>
+x<br>
+the key to be deleted.<br>
+If both its children are nul ,<br>we just delete it from its parent.<br>
+If one child is nul , we can<br>simply delete the node and<br>replace it with its non-null child.<br>
+p<br>
+53<br>
+<hr>
+<a name="54"></a><b>Deletion example</b><br>
+18<br>
+17<br>
+29<br>
+Delete 9 and 32<br>
+15<br>
+25<br>
+36<br>
+9<br>
+16<br>
+32<br>
+54<br>
+<hr>
+<a name="55"></a><b>Deletion example</b><br>
+18<br>
+17<br>
+29<br>
+Delete 36, 16 and 15<br>
+15<br>
+25<br>
+36<br>
+9<br>
+16<br>
+32<br>
+55<br>
+<hr>
+<a name="56"></a>p<br>
+x<br>
+delete<br>
+<b>Deletion (cntd.)</b><br>
+If neither child is nul , replace  <br>
+s<br>
+node (x) with its direct successor<br>(s), which is the left-most node in the <br>right subtree. This can be easily <br>removed as it has at most one child <br>(see previous slide) .<br>
+p<br>
+Alternatively, its direct predecessor<br>
+s<br>
+can also be used.<br>In either case it may make the<br>tree unbalanced.<br>
+56<br>
+<hr>
+<a name="57"></a><b>Deletion example</b><br>
+18<br>
+Delete 15 and 18<br>
+17<br>
+29<br>
+15<br>
+25<br>
+36<br>
+9<br>
+16<br>
+32<br>
+57<br>
+<hr>
+<a name="58"></a><b>Analysis of binary search trees</b><br>
+&#xFFFD; Search, delete and insert have the height of the tree as the worst case for running <br>
+time.<br>
+&#xFFFD; Search, delete and insert take <i>O(log n), </i>where <i>n </i>is the number of nodes in the <br>
+tree, if the tree is close to perfectly balanced.<br>
+&#xFFFD; Otherwise, they can be as bad as <i>O(n)<br></i>&#xFFFD; <b>Problem</b>: insertion and deletion make the tree less balanced.<br>&#xFFFD; <b>Solution</b>: keep the tree approximately balanced, without making insertion and <br>
+deletion too expensive<br>
+58<br>
+<hr>
+<a name="59"></a><b>Reading</b><br>
+&#xFFFD; Weiss: Chapters 17 and 18.1-18.3  <br>
+&#xFFFD; Drozdek: Sections 6.1 to 6.6   <br>
+Next session: Advanced Trees<br>
+Drozdek: Sections 6.7, 6.8, and 7.1.1 OR Weiss: Sections 18.4, 18.8, <br>
+21.1-21.3, 21.5-21.7<br>
+59<br>
+<hr>
+<a name="60"></a>City, University of London<br>Northampton Square<br>London<br>EC1V 0HB<br>United Kingdom<br>
+T: +44 (0)20 7040 8406<br>E: ug-compsci@city.ac.uk<br>www.city.ac.uk/department-computer-science<br>
+60<br>
+<hr>
+
+
+</p></body>
