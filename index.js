@@ -77,7 +77,7 @@ fs.readdir(__dirname + '/files', (err, data) => {
 			
 			var indexOutput = '<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><div class="container">';
 			for(var i = 0; i < links.length; i++){
-				indexOutput = indexOutput + '<a href="files/' +links[i]+ '" class="btn btn-primary" style="width: 50%; margin-left: 25%; margin-top: 3vh;">' +links[i]+ '</a><br>';
+				indexOutput = indexOutput + '<a href="' +links[i]+ '" class="btn btn-primary" style="width: 50%; margin-left: 25%; margin-top: 3vh;">' +links[i]+ '</a><br>';
 			}
 			indexOutput = indexOutput + '</div></body></html>';
 
