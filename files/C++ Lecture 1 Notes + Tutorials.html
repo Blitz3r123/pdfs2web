@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML>
+<HEAD>
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<A name=1></a>Session 1<br>
+Introduction to C++<br>
+Overview<br>
+This module: more programming, in C++<br>
+C++ has evolved over three decades, but is still widely used.<br>Assuming that you are currently a reasonably skillful Java programmer, by the end of this course<br>
+you should be able to<br>
+· read and modify substantial well-written C++ programs<br>
+· create classes and small programs in C++ that are correct, robust, clear and reusable<br>
+· use the standard libraries effectively<br>
+The language is much too large to cover in one term, so we shall focus on the most useful features for<br>writing application code.<br>
+This session: Getting started with C++<br>
+This session introduces the philosophy of C++, and some simple non-OO programs.<br>We will touch on the following features of C++:<br>
+· Program structure<br>
+· Standard libraries: I/O and strings<br>
+· Operator overloading<br>
+· Class types<br>
+All will be explored in greater detail later.<br>
+A bit of language history<br>
+1960 Algol 60: block structure, static typing<br>
+1967 Simula: Algol plus object-orientation (for simulation)<br>
+1970 C: statically typed, with low-level features<br>
+1.1<br>
+<hr>
+<A name=2></a>SESSION 1. INTRODUCTION TO C++<br>
+1.2<br>
+1972 Smalltalk: object-orientation (for graphical interfaces), no static types<br>
+1985 C++: C plus object-oriented features<br>
+1990 The Annotated C++ Reference Manual: namespaces, templates, exceptions<br>
+1995 Java: C++ greatly simplified (Sun)<br>
+1998 C++-98 (ISO standard): standard template library<br>
+2000 C : another simplified C++ (Microsoft)<br>
+2011 C++11: many new features (revised in 2014 and 2017)<br>
+Philosophy<br>
+Java design criteria<br>
+· object orientation<br>
+· (moderate) simplicity (fewer variant ways of doing things)<br>
+· robustness and security (type-safe, automatic memory allocation)<br>
+· architecture-neutral (fairly high level)<br>
+· precisely specified, e.g. int is always 32 bits<br>
+· syntax based on C++<br>
+C++ design criteria<br>
+· support a variety of programming styles, including object oriented (give the programmer more<br>
+choices)<br>
+· powerful (give the programmer more control)<br>
+· enable efficient implementation (shift some implementation concerns to the programmer)<br>
+· implementation-dependent specification, e.g. <b>int </b>is machine word size<br>
+· extension of C (machine-level access)<br>
+C++ as a composite language<br>
+C++ is a very large language, with many layers that have accumulated over time.<br>In his book Effective C++, Scott Meyers suggests thinking of C++ as a "federation of related<br>
+languages" with different programming styles:<br>
+· C: a low-level language with built-in data types and control structures. Often C features coexist<br>
+with newer, cleaner versions.<br>
+· Object-Oriented C++: classes, inheritance, dynamic binding, etc. (But unlike in Java, one can<br>
+often avoid these.)<br>
+<hr>
+<A name=3></a>SESSION 1. INTRODUCTION TO C++<br>
+1.3<br>
+· Template C++: classes and functions can be parameterized by types.<br>
+· The Standard Template Library: a library of containers, iterators and algorithms using template<br>
+classes, but not inheritance.<br>
+For the first five weeks, we shall focus on the first and last of these, and introduce the second later.<br>
+Basic program structure<br>
+A small C++ program<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>int main() {</b><br>
+<b>std::cout &lt;&lt; &quot;Hello world!\n&quot;;</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+· A typical program will begin with several <b>#include </b>lines, referencing system headers like<br>
+<b>&lt;iostream&gt;</b>, which contain collections of related definitions (in this case for I/O streams).<br>
+· This <b>#include </b>line brings into scope several names, including <b>std::cout</b>, the standard<br>
+output stream. Here <b>std </b>is the standard namespace, which is attached to all names defined in<br>the standard libraries, e.g. <b>std::string</b>, <b>std::vector</b>, etc.<br>
+Using the standard namespace<br>
+We can avoid putting <b>std:: </b>in front of every standard name by placing a single <b>using </b>declara-<br>
+tion at the top, after the <b>#include </b>lines:<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>using namespace std;</b><br>
+<b>int main() {</b><br>
+<b>cout &lt;&lt; &quot;Hello world!\n&quot;;</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+(Some style guides prefer to put <b>std:: </b>everywhere.)<br>We won't be using any namespaces other than <b>std</b>.<br>
+Functions<br>
+In C++ (as in C), one can define functions independent of any class:<br>
+<b>int square(int n) {</b><br>
+<b>return n*n;</b><br>
+<b>}</b><br>
+A function called <b>main </b>is used as the entry point of the program:<br>
+<hr>
+<A name=4></a>SESSION 1. INTRODUCTION TO C++<br>
+1.4<br>
+<b>int main() {</b><br>
+<b>// whatever you like here</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+The return value is reported to the system when the program exits: 0 means success; anything else<br>means something went wrong.<br>
+Similarities with Java<br>
+Many things in the C part of C++ are much the same as in Java:<br>
+· primitive types <b>int</b>, <b>double</b>, etc<br>
+· declarations, expressions, comments<br>
+· semicolons to end statements and braces for grouping<br>
+· <b>if</b>, <b>for</b>, <b>while</b>, <b>return</b>.<br>
+For example, this means the same in both languages:<br>
+<b>int factorial(int n) {</b><br>
+<b>int prod = 1;</b><br>
+<b>for (int i = 1; i &lt;= n; ++i)</b><br>
+<b>prod = prod * i;</b><br>
+<b>return prod;</b><br>
+<b>}</b><br>
+(but in Java this must be a method inside a class)<br>
+Input and output<br>
+Text output<br>
+This statement writes a string to the standard output (the console):<br>
+<b>cout &lt;&lt; &quot;Hello world!\n&quot;;</b><br>
+(like System.out.println(&quot;Hello world!&quot;); in Java)<br>
+· The <b>&lt;iostream&gt; </b>header defines three standard streams:<br>
+std::cin standard input (cf. Java's System.in)<br>
+std::cout standard output (cf. Java's System.out)<br>
+std::cerr error output (cf. Java's System.err)<br>
+· The <b>&lt;&lt; </b>operator, when applied to an output stream and a string, writes the string to the stream.<br>
+· When applied to integers, it performs a left shift (as in Java): the <b>&lt;&lt; </b>operator is overloaded.<br>
+<hr>
+<A name=5></a>SESSION 1. INTRODUCTION TO C++<br>
+1.5<br>
+Outputting several things<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>using namespace std;</b><br>
+<b>int main() {</b><br>
+<b>int i = 3;</b><br>
+<b>cout &lt;&lt; &quot;The value is &quot; &lt;&lt; i &lt;&lt; '\n';</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+The <b>&lt;&lt; </b>operator associates to the left, and returns the stream, so the above line is equivalent to<br>
+<b>((cout &lt;&lt; &quot;The value is &quot;) &lt;&lt; i) &lt;&lt; '\n';</b><br>
+It is also overloaded for <b>int </b>and <b>char</b>.<br>
+Ending output lines with <b>endl</b><br>
+Some authors use <b>endl </b>instead of <b>'\n'</b>:<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>using namespace std;</b><br>
+<b>int main() {</b><br>
+<b>cout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; endl;</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+but this is slightly different. The <b>endl </b>manipulator outputs <b>'\n' </b>and then flushes the output, so the<br>output line is equivalent to<br>
+<b>cout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; '\n' &lt;&lt; flush;</b><br>
+But frequent flushing may be costly.<br>
+Text input<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>using namespace std;</b><br>
+<b>int main() {</b><br>
+<b>int i;</b><br>
+<b>cout &lt;&lt; &quot;Type a number: &quot;;</b><br>
+<b>cin &gt;&gt; i;</b><br>
+<b>cout &lt;&lt; i &lt;&lt; &quot; times 3 is &quot; &lt;&lt; (i*3) &lt;&lt; '\n';<br>return 0;</b><br>
+<b>}</b><br>
+The <b>&gt;&gt; </b>operator reads from an input stream. It is overloaded in a similar way to the <b>&lt;&lt; </b>operator.<br>
+<hr>
+<A name=6></a>SESSION 1. INTRODUCTION TO C++<br>
+1.6<br>
+Strings<br>
+Using strings<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>#include &lt;string&gt;</b><br>
+<b>using namespace std;</b><br>
+<b>int main() {</b><br>
+<b>cout &lt;&lt; &quot;Please enter your first name: &quot;;</b><br>
+<b>string name;</b><br>
+<b>cin &gt;&gt; name;</b><br>
+<b>cout &lt;&lt; &quot;Hello, &quot; &lt;&lt; name &lt;&lt; &quot;!\n&quot;;</b><br>
+<b>cout &lt;&lt; &quot;Your name has &quot; &lt;&lt; name.size() &lt;&lt;</b><br>
+<b>&quot; letters.\n&quot;;</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+Strings details<br>
+<b>#include &lt;string&gt;</b><br>
+includes a standard header defining a type <b>std::string</b>.<br>
+<b>string name;</b><br>
+declares a variable <b>name </b>of type <b>string </b>and initializes it to an empty string (different from Java).<br>
+<b>cin &gt;&gt; name;</b><br>
+reads one word from standard input into <b>name</b>.<br>
+<b>cout &lt;&lt; name.size();</b><br>
+A <b>string </b>is an object, with a member function (method in Java terms) <b>size() </b>that returns a<br>number, the length of the string.<br>
+Properties of types<br>
+· Like Java, C++ has primitive types, like <b>int </b>and <b>double</b>, and also class types, like <b>string</b>.<br>
+· In Java, a variable of class type holds a reference to an object, which has to be created with<br>
+new.<br>
+· In C++, a variable of class type holds an object, which is initialized in some default way if you<br>
+don't give an initial value.<br>
+<b>string name; // initialized as empty</b><br>
+<b>string another = &quot;Fred&quot;;</b><br>
+<b>string name = another; // copies the string</b><br>
+<hr>
+<A name=7></a>SESSION 1. INTRODUCTION TO C++<br>
+1.7<br>
+· In contrast, local variables of primitive types are not initialized to default values.<br>
+Summary<br>
+Much of basic C++ is similar to Java, but we've already noticed some differences:<br>
+· Different syntax for accessing libraries (<b>#include </b>and namespaces)<br>
+· Functions can be defined independent of classes.<br>
+· More extensive use of overloading<br>
+· Variables of class type contain objects, not references. (We'll explore the consequences of this<br>
+over the following weeks.)<br>
+Next week, we'll look at using sequential containers (<b>vector</b>, <b>list</b>, <b>deque</b>, etc).<br>
+Exercises<br>
+1. Write a program that requests the user's age, reads the age they provide and then prints out:<br>
+X is too young.<br>
+if the supplied age is less than 18,<br>
+X is too old.<br>
+if the supplied age is greater than 30, and<br>
+X is the right age.<br>
+otherwise, where in each case X is replaced by the supplied age.<br>
+2. Write a program that requests the user's name, reads the string they provide and then prints out:<br>
+Hello, XXXXXX!<br>
+==============<br>
+where XXXXXX is replaced by the name provided by the user.<br>
+Note: The number of equal signs in the bottom line should adjusted to account for the length of<br>the name provided.<br>
+3. The program below is a simple guessing game:<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>#include &lt;cstdlib&gt;</b><br>
+<b>#include &lt;ctime&gt;</b><br>
+<b>using namespace std;</b><br>
+<hr>
+<A name=8></a>SESSION 1. INTRODUCTION TO C++<br>
+1.8<br>
+<b>int main() {</b><br>
+<b>srand(time(nullptr));</b><br>
+<b>int n = 10;</b><br>
+<b>int secret = rand()%n + 1;</b><br>
+<b>cout &lt;&lt; &quot;Guess a number between 1 and &quot; &lt;&lt; n &lt;&lt; &quot;: &quot;;</b><br>
+<b>int guess;</b><br>
+<b>cin &gt;&gt; guess;</b><br>
+<b>while (guess != secret) {</b><br>
+<b>cout &lt;&lt; &quot;Wrong! Guess again: &quot;;</b><br>
+<b>cin &gt;&gt; guess;</b><br>
+<b>}</b><br>
+<b>cout &lt;&lt; &quot;Correct!\n&quot;;</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+Some explanations:<br>
+· The expression <b>srand(time(nullptr)) </b>initializes the system's pseudo-random num-<br>
+ber generator.<br>
+· The expression <b>rand()%n + 1 </b>generates a random number between 1 and <b>n </b>(here set<br>
+to 10).<br>
+· The system headers <b>&lt;cstdlib&gt; </b>and <b>&lt;ctime&gt; </b>make available the functions used in<br>
+these expressions. (The initial <b>c </b>hints that they are borrowed from C.)<br>
+Starting with this program:<br>
+(a) Run the program, and make sure you understand it.<br>
+(b) Modify the program so that instead of merely saying that a guess is wrong, it indicates<br>
+whether the guess was too high or too low.<br>
+(c) Count the number of guesses made, and report them when the user finally succeeds in<br>
+guessing the secret number.<br>
+(d) Change <b>n </b>to something larger, since this version allows the user to guess the secret number<br>
+more quickly.<br>
+<hr>
+</BODY>
+</HTML>

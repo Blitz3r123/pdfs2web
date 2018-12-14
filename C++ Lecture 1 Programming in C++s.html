@@ -1,0 +1,317 @@
+<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><div style="width: 50%; margin-left: 25%; text-align: center;"><p class="lead">
+<a name="1"></a>Session 1 &#xFFFD; Introduction to C++<br>
+IN2029: Programming in C++<br>
+Session 1 &#xFFFD; Introduction to C++<br>
+Ross Paterson<br>
+Department of Computer Science<br>
+City, University of London<br>
+Autumn term, 2018<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+1 / 19<br>
+<hr>
+<a name="2"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Overview<br>
+This module: more programming, in C++<br>
+C++ has evolved over three decades, but is still widely used.<br>Assuming that you are currently a reasonably skillful Java programmer,<br>by the end of this course you should be able to<br>
+read and modify substantial well-written C++ programs<br>
+create classes and small programs in C++ that are correct, robust,<br>clear and reusable<br>
+use the standard libraries effectively<br>
+The language is much too large to cover in one term, so we shall focus<br>on the most useful features for writing application code.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+2 / 19<br>
+<hr>
+<a name="3"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Overview<br>
+This session: Getting started with C++<br>
+This session introduces the philosophy of C++, and some simple<br>non-OO programs.<br>We will touch on the following features of C++:<br>
+Program structure<br>
+Standard libraries: I/O and strings<br>
+Operator overloading<br>
+Class types<br>
+All will be explored in greater detail later.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+3 / 19<br>
+<hr>
+<a name="4"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Overview<br>
+A bit of language history<br>
+1960 Algol 60: block structure, static typing<br>
+1967 Simula: Algol plus object-orientation (for simulation)<br>
+1970 C: statically typed, with low-level features<br>
+1972 Smalltalk: object-orientation (for graphical interfaces), no<br>
+static types<br>
+1985 C++: C plus object-oriented features<br>
+1990 The Annotated C++ Reference Manual: namespaces,<br>
+templates, exceptions<br>
+1995 Java: C++ greatly simplified (Sun)<br>
+1998 C++-98 (ISO standard): standard template library<br>
+2000 C : another simplified C++ (Microsoft)<br>
+2011 C++11: many new features (revised in 2014 and 2017)<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+4 / 19<br>
+<hr>
+<a name="5"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Philosophy<br>
+Java design criteria<br>
+object orientation<br>
+(moderate) simplicity (fewer variant ways of doing things)<br>
+robustness and security (type-safe, automatic memory allocation)<br>
+architecture-neutral (fairly high level)<br>
+precisely specified, e.g. int is always 32 bits<br>
+syntax based on C++<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+5 / 19<br>
+<hr>
+<a name="6"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Philosophy<br>
+C++ design criteria<br>
+support a variety of programming styles, including object oriented<br>(give the programmer more choices)<br>
+powerful (give the programmer more control)<br>
+enable efficient implementation (shift some implementation<br>concerns to the programmer)<br>
+implementation-dependent specification, e.g. <b>int </b>is machine<br>word size<br>
+extension of C (machine-level access)<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+6 / 19<br>
+<hr>
+<a name="7"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Philosophy<br>
+C++ as a composite language<br>
+C++ is a very large language, with many layers that have accumulated<br>over time.<br>In his book Effective C++, Scott Meyers suggests thinking of C++ as a<br>&quot;federation of related languages&quot; with different programming styles:<br>
+C: a low-level language with built-in data types and control<br>structures. Often C features coexist with newer, cleaner versions.<br>
+Object-Oriented C++: classes, inheritance, dynamic binding, etc.<br>(But unlike in Java, one can often avoid these.)<br>
+Template C++: classes and functions can be parameterized by<br>types.<br>
+The Standard Template Library: a library of containers, iterators<br>and algorithms using template classes, but not inheritance.<br>
+For the first five weeks, we shall focus on the first and last of these,<br>and introduce the second later.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+7 / 19<br>
+<hr>
+<a name="8"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Basic program structure<br>
+A small C++ program<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>int main() {</b><br>
+<b>std::cout &lt;&lt; &quot;Hello world!\n&quot;;</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+A typical program will begin with several <b>#include </b>lines,<br>referencing system headers like <b>&lt;iostream&gt;</b>, which contain<br>collections of related definitions (in this case for I/O streams).<br>
+This <b>#include </b>line brings into scope several names, including<br><b>std::cout</b>, the standard output stream. Here <b>std </b>is the<br>standard namespace, which is attached to all names defined in<br>the standard libraries, e.g. <b>std::string</b>, <b>std::vector</b>, etc.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+8 / 19<br>
+<hr>
+<a name="9"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Basic program structure<br>
+Using the standard namespace<br>
+We can avoid putting <b>std:: </b>in front of every standard name by placing<br>a single <b>using </b>declaration at the top, after the <b>#include </b>lines:<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>using namespace std;</b><br>
+<b>int main() {</b><br>
+<b>cout &lt;&lt; &quot;Hello world!\n&quot;;</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+(Some style guides prefer to put <b>std:: </b>everywhere.)<br>We won&apos;t be using any namespaces other than <b>std</b>.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+9 / 19<br>
+<hr>
+<a name="10"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Basic program structure<br>
+Functions<br>
+In C++ (as in C), one can define functions independent of any class:<br>
+<b>int square(int n) {</b><br>
+<b>return n*n;</b><br>
+<b>}</b><br>
+A function called <b>main </b>is used as the entry point of the program:<br>
+<b>int main() {</b><br>
+<b>// whatever you like here</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+The return value is reported to the system when the program exits: 0<br>means success; anything else means something went wrong.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+10 / 19<br>
+<hr>
+<a name="11"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Basic program structure<br>
+Similarities with Java<br>
+Many things in the C part of C++ are much the same as in Java:<br>
+primitive types <b>int</b>, <b>double</b>, etc<br>
+declarations, expressions, comments<br>
+semicolons to end statements and braces for grouping<br>
+<b>if</b>, <b>for</b>, <b>while</b>, <b>return</b>.<br>
+For example, this means the same in both languages:<br>
+<b>int factorial(int n) {</b><br>
+<b>int prod = 1;</b><br>
+<b>for (int i = 1; i &lt;= n; ++i)</b><br>
+<b>prod = prod * i;</b><br>
+<b>return prod;</b><br>
+<b>}</b><br>
+(but in Java this must be a method inside a class)<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+11 / 19<br>
+<hr>
+<a name="12"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Input and output<br>
+Text output<br>
+This statement writes a string to the standard output (the console):<br>
+<b>cout &lt;&lt; &quot;Hello world!\n&quot;;</b><br>
+(like System.out.println(&quot;Hello world!&quot;); in Java)<br>
+The <b>&lt;iostream&gt; </b>header defines three standard streams:<br>
+std::cin standard input (cf. Java&apos;s System.in)<br>
+std::cout standard output (cf. Java&apos;s System.out)<br>
+std::cerr error output (cf. Java&apos;s System.err)<br>
+The <b>&lt;&lt; </b>operator, when applied to an output stream and a string,<br>writes the string to the stream.<br>
+When applied to integers, it performs a left shift (as in Java): the<br><b>&lt;&lt; </b>operator is overloaded.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+12 / 19<br>
+<hr>
+<a name="13"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Input and output<br>
+Outputting several things<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>using namespace std;</b><br>
+<b>int main() {</b><br>
+<b>int i = 3;</b><br>
+<b>cout &lt;&lt; &quot;The value is &quot; &lt;&lt; i &lt;&lt; &apos;\n&apos;;</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+The <b>&lt;&lt; </b>operator associates to the left, and returns the stream, so the<br>above line is equivalent to<br>
+<b>((cout &lt;&lt; &quot;The value is &quot;) &lt;&lt; i) &lt;&lt; &apos;\n&apos;;</b><br>
+It is also overloaded for <b>int </b>and <b>char</b>.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+13 / 19<br>
+<hr>
+<a name="14"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Input and output<br>
+Ending output lines with <b>endl</b><br>
+Some authors use <b>endl </b>instead of <b>&apos;\n&apos;</b>:<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>using namespace std;</b><br>
+<b>int main() {</b><br>
+<b>cout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; endl;</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+but this is slightly different. The <b>endl </b>manipulator outputs <b>&apos;\n&apos; </b>and<br>then flushes the output, so the output line is equivalent to<br>
+<b>cout &lt;&lt; &quot;Hello world!&quot; &lt;&lt; &apos;\n&apos; &lt;&lt; flush;</b><br>
+But frequent flushing may be costly.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+14 / 19<br>
+<hr>
+<a name="15"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Input and output<br>
+Text input<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>using namespace std;</b><br>
+<b>int main() {</b><br>
+<b>int i;</b><br>
+<b>cout &lt;&lt; &quot;Type a number: &quot;;</b><br>
+<b>cin &gt;&gt; i;</b><br>
+<b>cout &lt;&lt; i &lt;&lt; &quot; times 3 is &quot; &lt;&lt; (i*3) &lt;&lt; &apos;\n&apos;;<br>return 0;</b><br>
+<b>}</b><br>
+The <b>&gt;&gt; </b>operator reads from an input stream. It is overloaded in a<br>similar way to the <b>&lt;&lt; </b>operator.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+15 / 19<br>
+<hr>
+<a name="16"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Strings<br>
+Using strings<br>
+<b>#include &lt;iostream&gt;</b><br>
+<b>#include &lt;string&gt;</b><br>
+<b>using namespace std;</b><br>
+<b>int main() {</b><br>
+<b>cout &lt;&lt; &quot;Please enter your first name: &quot;;</b><br>
+<b>string name;</b><br>
+<b>cin &gt;&gt; name;</b><br>
+<b>cout &lt;&lt; &quot;Hello, &quot; &lt;&lt; name &lt;&lt; &quot;!\n&quot;;</b><br>
+<b>cout &lt;&lt; &quot;Your name has &quot; &lt;&lt; name.size() &lt;&lt;</b><br>
+<b>&quot; letters.\n&quot;;</b><br>
+<b>return 0;</b><br>
+<b>}</b><br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+16 / 19<br>
+<hr>
+<a name="17"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Strings<br>
+Strings details<br>
+<b>#include &lt;string&gt;</b><br>
+includes a standard header defining a type <b>std::string</b>.<br>
+<b>string name;</b><br>
+declares a variable <b>name </b>of type <b>string </b>and initializes it to an empty<br>string (different from Java).<br>
+<b>cin &gt;&gt; name;</b><br>
+reads one word from standard input into <b>name</b>.<br>
+<b>cout &lt;&lt; name.size();</b><br>
+A <b>string </b>is an object, with a member function (method in Java terms)<br><b>size() </b>that returns a number, the length of the string.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+17 / 19<br>
+<hr>
+<a name="18"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Strings<br>
+Properties of types<br>
+Like Java, C++ has primitive types, like <b>int </b>and <b>double</b>, and<br>also class types, like <b>string</b>.<br>
+In Java, a variable of class type holds a reference to an object,<br>which has to be created with new.<br>
+In C++, a variable of class type holds an object, which is initialized<br>in some default way if you don&apos;t give an initial value.<br>
+<b>string name; // initialized as empty</b><br>
+<b>string another = &quot;Fred&quot;;</b><br>
+<b>string name = another; // copies the string</b><br>
+In contrast, local variables of primitive types are not initialized to<br>default values.<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+18 / 19<br>
+<hr>
+<a name="19"></a>Session 1 &#xFFFD; Introduction to C++<br>
+Strings<br>
+Summary<br>
+Much of basic C++ is similar to Java, but we&apos;ve already noticed some<br>differences:<br>
+Different syntax for accessing libraries (<b>#include </b>and<br>namespaces)<br>
+Functions can be defined independent of classes.<br>
+More extensive use of overloading<br>
+<b>Variables of class type contain objects, not references. </b>(We&apos;ll<br>explore the consequences of this over the following weeks.)<br>
+Next week, we&apos;ll look at using sequential containers (<b>vector</b>, <b>list</b>,<br><b>deque</b>, etc).<br>
+Ross Paterson (City, University of London)<br>
+IN2029: Programming in C++<br>
+Autumn term, 2018<br>
+19 / 19<br>
+<hr>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul><li>Session 1 &#xFFFD; Introduction to C++
+<ul><li>Overview
+</li><li>Philosophy
+</li><li>Basic program structure
+</li><li>Input and output
+</li><li>Strings
+</li></ul></li></ul><hr>
+
+
+</p></div></body>

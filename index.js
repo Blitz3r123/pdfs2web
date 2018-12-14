@@ -25,15 +25,19 @@ fs.readdir(__dirname + '/files', (err, data) => {
 		console.log("Error: " + err);
 	}else{
 		// Check if there are any files in the directory
+		console.log("Checking for files in the directory.");
 		if(data.length === 0){
 			console.log('There are no files in the directory.');
 		}else{
+			console.log("Files have been found.");
 			// Go through each file
 			for(var i = 0; i < data.length; i++){
 				// SORT THE FILES INTO ARRAYS OF THEIR FILE TYPES
 				sortFileByType(data[i]);
+				console.log("Sorting files.");
 			}
 
+			console.log("Checking for any previous html files.");
 			if(htmlFiles.length < pdfFiles.length){
 				// console.log('htmlfiles.length = ' + htmlFiles.length);
 				// console.log('pdfFiles.length = ' + pdfFiles.length);
@@ -50,12 +54,17 @@ fs.readdir(__dirname + '/files', (err, data) => {
 							// console.log(htmlFiles[i] + " deleted!");
 							htmlFileCount--;
 						});
+						console.log("All html files deleted.");
 					}else{
 						console.log(htmlFiles[i] + " doesn't exist!");
 					}
 				}
+				console.log("Creating script.bat.");
 				createBatCode(pdfFiles);
-				runBatCode(__dirname + '/files/script.bat');
+				console.log("script.bat Created.");
+				console.log("Running script.bat.");
+				runBatCode(__dirname + '/script.bat');
+				console.log("script.bat has been run.");
 			}
 
 			var outputPage = '';
@@ -63,18 +72,20 @@ fs.readdir(__dirname + '/files', (err, data) => {
 			for(var i = 0; i < htmlFiles.length; i++){
 				if((htmlFiles[i].slice(-6) === 's.html') && (!htmlFiles[i].includes('answers.html'))){
 					links.push(htmlFiles[i]);
+					console.log("Organising html files.");
 					var page = fs.readFileSync(__dirname + '/files/' + htmlFiles[i]);
 					const $ = cheerio.load(page);
-					outputPage = '<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><p class="lead">'
+					console.log("Writing html code for page: " + htmlFiles[i]);
+					outputPage = '<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><div style="width: 50%; margin-left: 25%; text-align: center;"><p class="lead">'
 					outputPage = outputPage + $('body').html();
-					outputPage = outputPage + '</p></body>';
-
+					outputPage = outputPage + '</p></div></body>';
 					fs.writeFile(htmlFiles[i], outputPage, (err) => {
 						if (err) console.log(err);
 					});
+					console.log("HTML code written for page: " + htmlFiles[i]);
 				}
 			}
-			
+			console.log("Writing html for index.html page.");
 			var indexOutput = '<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><div class="container">';
 			for(var i = 0; i < links.length; i++){
 				indexOutput = indexOutput + '<a href="' +links[i]+ '" class="btn btn-primary" style="width: 50%; margin-left: 25%; margin-top: 3vh;">' +links[i]+ '</a><br>';
@@ -83,18 +94,8 @@ fs.readdir(__dirname + '/files', (err, data) => {
 
 			fs.writeFile('index.html', indexOutput, (err) => {
 				if (err) console.log(err);
+				console.log("HTML code written for index.html page.");
 			});
-
-			// console.log($(''));
-			// }
-			// All files should be sorted at this point and all html files should be deleted
-			// Create the bat code to convert all pdf files to html 
-			// displayArray(htmlFiles);
-			// displayArray(pdfFiles);
-			// displayArray(exeFiles);
-			// displayArray(batFiles);
-			// displayArray(otherFiles);
-
 		}
 	}	
 });
@@ -124,21 +125,25 @@ function sortFileByType(filename){
 		exeFiles.push(filename);
 		exeFileCount++;
 	}else{
-		otherFiles.push(filename);
+		// otherFiles.push(filename);
 		otherFiles++;
 	}
 }
 
 // function for creating the cmd commands to convert from pdf to html
 function createBatCode(pdfFiles){
-	var script = '';
-
+	var script = 'cd files \n';
+	console.log("Writing .bat code...");
 	for(var i = 0; i < pdfFiles.length; i++){
-		script = script + 'call pdftohtml.exe ' + pdfFiles[i] + ' ' + pdfFiles[i].slice(0, -4) + '.html \n'; 
+		script = script + 'call pdftohtml.exe "' + pdfFiles[i] + '" "' + pdfFiles[i].slice(0, -4) + '.html" \n'; 
 	}
 
-	fs.writeFile(__dirname + '/files/script.bat', script, (err) => {
+	script = script + 'cd ../ \n';
+	script = script + 'node index.js \n';
+
+	fs.writeFile(__dirname + '/script.bat', script, (err) => {
 		if (err) console.log(err);
+		console.log(".bat code has been written.");
 	});
 }
 
@@ -150,7 +155,7 @@ function runBatCode(filename){
 	filename = '"' + filename + '"';
 
 	process.exec(filename, (error, stdout, stderr) => {
-		// console.log(stdout);
+		console.log(stdout);
 		if (error) console.log(error);
 		// console.log('.bat file executed.');
 	});
