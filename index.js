@@ -31,10 +31,10 @@ fs.readdir(__dirname + '/files', (err, data) => {
 		}else{
 			console.log("Files have been found.");
 			// Go through each file
+			console.log("Sorting files.");
 			for(var i = 0; i < data.length; i++){
 				// SORT THE FILES INTO ARRAYS OF THEIR FILE TYPES
 				sortFileByType(data[i]);
-				console.log("Sorting files.");
 			}
 
 			console.log("Checking for any previous html files.");
@@ -76,7 +76,7 @@ fs.readdir(__dirname + '/files', (err, data) => {
 					var page = fs.readFileSync(__dirname + '/files/' + htmlFiles[i]);
 					const $ = cheerio.load(page);
 					console.log("Writing html code for page: " + htmlFiles[i]);
-					outputPage = '<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><div style="width: 50%; margin-left: 25%; text-align: center;"><p class="lead">'
+					outputPage = '<html><head><title>Title</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></head><body><div style="width: 80%; margin-left: 10%; text-align: center;"><p class="lead">'
 					outputPage = outputPage + $('body').html();
 					outputPage = outputPage + '</p></div></body>';
 					fs.writeFile(htmlFiles[i], outputPage, (err) => {
